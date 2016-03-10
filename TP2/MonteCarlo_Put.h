@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
-#include <tchar.h>
+//#include <tchar.h>
 #include <stdio.h>
 #include <math.h>
 #include <vector>

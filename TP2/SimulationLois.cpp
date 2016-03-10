@@ -8,7 +8,7 @@ using namespace std;
 
 double loiuniforme()
 {
-	return (double)((float)rand() / (float)RAND_MAX);
+	return (double)(random());
 }
 
 

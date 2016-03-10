@@ -13,6 +13,7 @@
 		C9B9726D1C8CA4FF007C99A8 /* MonteCarlo_Put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972651C8CA4FF007C99A8 /* MonteCarlo_Put.cpp */; };
 		C9B9726E1C8CA4FF007C99A8 /* ProjetBruchetDo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972671C8CA4FF007C99A8 /* ProjetBruchetDo.cpp */; };
 		C9B9726F1C8CA4FF007C99A8 /* SimulationLois.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972681C8CA4FF007C99A8 /* SimulationLois.cpp */; };
+		C9B972721C8D8C83007C99A8 /* Minimization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972701C8D8C83007C99A8 /* Minimization.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,8 @@
 		C9B972681C8CA4FF007C99A8 /* SimulationLois.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimulationLois.cpp; path = ../../SimulationLois.cpp; sourceTree = "<group>"; };
 		C9B972691C8CA4FF007C99A8 /* SimulationLois.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimulationLois.h; path = ../../SimulationLois.h; sourceTree = "<group>"; };
 		C9B9726A1C8CA4FF007C99A8 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector.h; path = ../../vector.h; sourceTree = "<group>"; };
+		C9B972701C8D8C83007C99A8 /* Minimization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Minimization.cpp; path = ../../Minimization.cpp; sourceTree = "<group>"; };
+		C9B972711C8D8C83007C99A8 /* Minimization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Minimization.h; path = ../../Minimization.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				C9B972691C8CA4FF007C99A8 /* SimulationLois.h */,
 				C9B9726A1C8CA4FF007C99A8 /* vector.h */,
 				C9B972591C8C976E007C99A8 /* main.cpp */,
+				C9B972701C8D8C83007C99A8 /* Minimization.cpp */,
+				C9B972711C8D8C83007C99A8 /* Minimization.h */,
 			);
 			path = MonteCarlo;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 				C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */,
 				C9B9726E1C8CA4FF007C99A8 /* ProjetBruchetDo.cpp in Sources */,
 				C9B9726C1C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp in Sources */,
+				C9B972721C8D8C83007C99A8 /* Minimization.cpp in Sources */,
 				C9B9726D1C8CA4FF007C99A8 /* MonteCarlo_Put.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

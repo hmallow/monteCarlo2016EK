@@ -1,4 +1,4 @@
-#include <tchar.h>
+//#include <tchar.h>
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -14,6 +14,7 @@
 #include "Black_Scholes.h"
 #include "MonteCarlo_Put.h"
 #include "MonteCarlo_Geo.h"
+#include "SimulationLois.h"
 
 
 
@@ -22,7 +23,8 @@ using namespace std;
 
 int main()
 { 
-	double lambda = 1.045;
+
+    double lambda = 1.045;
 
 	double spot=80;
 	double K=100;
