@@ -9,6 +9,7 @@
 #include <iomanip>
 #include<cmath>
 #include<iostream>
+#include <random>
 
 #include "vector.h"
 #include "Black_Scholes.h"
@@ -22,8 +23,8 @@ using namespace std;
 
 
 int main()
-{ 
-
+{
+    
     double lambda = 1.045;
 
 	double spot=80;
