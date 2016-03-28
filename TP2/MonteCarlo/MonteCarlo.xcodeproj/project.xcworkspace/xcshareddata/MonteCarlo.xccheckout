@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>921E02EC-66A9-40CD-9372-DEDA892928BE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>MonteCarlo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2D796222D71F0519C8D3D99AB9A35571286A26E7</key>
 		<string>https://github.com/hmallow/monteCarlo2016EK.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TP2/MonteCarlo/MonteCarlo.xcodeproj/project.xcworkspace</string>
+	<string>TP2/MonteCarlo/MonteCarlo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2D796222D71F0519C8D3D99AB9A35571286A26E7</key>

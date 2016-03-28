@@ -53,15 +53,9 @@ int main()
 	cout << "Le prix d'un put US est : " << PutUS[1] << endl;
 
 	cout << "Le lambda min est : " << PutUS[0] << endl;
-
-<<<<<<< HEAD
 	
 
 	return 0;
-=======
-}
-
->>>>>>> origin/master
 
 }
 
