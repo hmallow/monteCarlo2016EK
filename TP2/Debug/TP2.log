@@ -1,17 +1,9 @@
-﻿Build started 05/03/2016 15:52:22.
-     1>Project "C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\TP2\TP2.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProjetBruchetDo.cpp
-         ProjetBruchetDo.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\Debug\TP2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\Debug\TP2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\Debug\TP2.lib" /MACHINE:X86 Debug\Black_Scholes.obj
-         Debug\MonteCarlo_Geo.obj
-         Debug\ProjetBruchetDo.obj
-         Debug\MonteCarlo_Put.obj
-         Debug\SimulationLois.obj
-         TP2.vcxproj -> C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\Debug\TP2.exe
-     1>Done Building Project "C:\Users\Sandra\Desktop\ProjetInfo\ProjetBruchetDov5\TP2\TP2.vcxproj" (Build target(s)).
+﻿Build started 28/03/2016 15:31:35.
+     1>Project "C:\Users\Sandra\Desktop\Projet Lemaire\monteCarlo2016EK\TP2\TP2.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         TP2.vcxproj -> C:\Users\Sandra\Desktop\Projet Lemaire\monteCarlo2016EK\Debug\TP2.exe
+     1>Done Building Project "C:\Users\Sandra\Desktop\Projet Lemaire\monteCarlo2016EK\TP2\TP2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.50
+Time Elapsed 00:00:00.21

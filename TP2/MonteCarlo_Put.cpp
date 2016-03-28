@@ -1,40 +1,42 @@
+
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
-
 #include "MonteCarlo_Put.h"
 #include "vector.h"
 #include "SimulationLois.h"
 #include "Black_Scholes.h"
 
 #define MAX(a,b) (((a)>(b))?(a):(b))
-#define MAXIT 10
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAXIT 300
 
 using namespace std;
 
 
-double Sim(int Nt, double vol, double spot, double r, double K, double T, double lambda)
+vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
 {
-	double maximum;
-	int index=INFINITY;
+	int index = INFINITY;
 
 	double delta_t = T / Nt;
 
+	vector<double> lnS(Nt + 1, 0.);
 	vector<double> S(Nt + 1, 0.);
 	vector<double> M(Nt + 1, 0.);
-	vector<double> V(Nt + 1, 0.);
+
 
 	// Initialisation
+	lnS[0] = log(spot);
 	S[0] = spot;
 	M[0] = 0;
-	V[0] = MAX(K-spot,0);
 
 	// Boucle discretisation
-	for (int nt = 1; nt < (Nt+1); nt++)
+	for (int nt = 1; nt < (Nt + 1); nt++)
 	{
 		// Calcul le spot aux instants de discretisation
 		double normale = loinormale()[0];
-		S[nt] = spot*exp(vol*sqrt(nt*delta_t)*normale + (r-vol*vol/2)*nt*delta_t);
+		lnS[nt] = lnS[nt - 1] + vol*sqrt(delta_t)*normale + (r - vol*vol / 2)*delta_t;
+		S[nt] = exp(lnS[nt]);
 
 		// Calcul l'indice minimum quand le spot est en dessous du strike
 		if ((S[nt] <= K) && (nt<index))
@@ -46,83 +48,123 @@ double Sim(int Nt, double vol, double spot, double r, double K, double T, double
 		}
 
 		// Calcul les valeurs de la martingale choisie
-		if (nt>=index)
+		if (nt >= index)
 		{
-			M[nt] = M[nt - 1] + callput(S[nt], K, T-nt*delta_t, r, 0, vol, -1) - callput(S[nt - 1], K,T-(nt - 1)*delta_t, r, 0, vol, -1);
+			M[nt] = M[nt - 1] + callput(S[nt], K, T - nt*delta_t, r, 0, vol, -1) - callput(S[nt - 1], K, T - (nt - 1)*delta_t, r, 0, vol, -1);
 		}
 		else
 		{
 			M[nt] = M[nt - 1];
 		}
-
-		V[nt] = exp(-r*nt*delta_t)* MAX(K - S[nt], 0) - lambda*M[nt];
 	}
 
-	maximum=*max_element(V.begin(), V.end());
+	S.insert(S.end(), M.begin(), M.end());
 
-	return(maximum);
+	return(S);
 }
 
 
 
 
-double MC_Put(int nbSim, int Nt, double vol, double spot, double r, double K, double T, double lambda)
+vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T)
 {
-	double PayoffsCV=0;
+	vector<vector<double>> Path(nbSim, vector<double>(2 * (Nt + 1), 0.));
 
 	for (int i = 0; i<nbSim; i++)
 	{
-		PayoffsCV = PayoffsCV + Sim(Nt, vol, spot, r, K, T, lambda) / nbSim;
+		Path[i] = Sim_S_M(Nt, vol, spot, r, K, T);
+	}
+
+	return(Path);
+}
+
+double MC_Put(vector<vector<double>> Path, double lambda, double r, double K, double T)
+{
+	double PayoffsCV = 0;
+	int nbSim = Path.size();
+	int l = Path[0].size();
+	int Nt = l / 2 - 1;
+	double delta_t = T / Nt;
+
+	double maximum;
+
+
+	vector<double> V(Nt + 1, 0.);
+
+
+	for (int i = 0; i<nbSim; i++)
+	{
+		vector<double> Pathi = Path[i];
+
+		vector<double>::const_iterator first = Pathi.begin();
+		vector<double>::const_iterator last = Pathi.begin() + Nt + 1;
+		vector<double> S(first, last);
+
+		vector<double>::const_iterator first2 = Pathi.begin() + Nt + 1;
+		vector<double>::const_iterator last2 = Pathi.begin() + 2 * (Nt + 1);
+		vector<double> M(first2, last2);
+
+		for (int nt = 0; nt < (Nt + 1); nt++)
+		{
+			V[nt] = exp(-r*nt*delta_t)* MAX(K - S[nt], 0) - lambda*M[nt];
+		}
+
+		maximum = *max_element(V.begin(), V.end());
+
+		PayoffsCV = PayoffsCV + maximum / nbSim;
 	}
 
 	return(PayoffsCV);
 }
 
 
-double minlambda(double seuil, double inf, double sup, int nbSim, int Nt, double vol, double spot, double r, double K, double T)
+vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T)
 {
-	double lambda = 0;
-	double lambdaInf = inf;
-	double lambdaSup = sup;
+	vector<double> res(2, 0.);
 
-	double mid = (lambdaInf + lambdaSup) / 2;
+	// On simule nbSim trajectoires
+	vector<vector<double>> Path = Paths(nbSim, Nt, vol, spot, r, K, T);
 
-	for (int i = 0; i < MAXIT; i++)
+	// Initialisation 
+	double x0 = MIN(a, b);
+	double x3 = MAX(a, b);
+	double m = (a + b) / 2;
+	double lg = x3 - x0;
+	double x1 = m - lg / 2;
+	double x2 = m + lg / 2;
+	int i = 0;
+
+	while (((x3 - x0) > seuil) && (i < MAXIT))
 	{
-
-		if (abs(MC_Put(nbSim, Nt, vol, spot, r, K, T, mid) - MC_Put(nbSim, Nt, vol, spot, r, K, T, lambda)) < seuil)
+		if ((MC_Put(Path, x2, r, K, T) - MC_Put(Path, x3, r, K, T)) / (x2 - x3) <= 0)
 		{
-			return mid;
+			x0 = x2;
 		}
-		else if (MC_Put(nbSim, Nt, vol, spot, r, K, T, mid) - MC_Put(nbSim, Nt, vol, spot, r, K, T, lambda) > 0)
+		else if ((MC_Put(Path, x1, r, K, T) - MC_Put(Path, x2, r, K, T)) / (x1 - x2) <= 0)
 		{
-			lambdaInf = lambda;
+			x0 = x1;
+		}
+		else if ((MC_Put(Path, x0, r, K, T) - MC_Put(Path, x1, r, K, T)) / (x0 - x1) <= 0)
+		{
+			x3 = x2;
 		}
 		else
 		{
-			lambdaSup = lambda;
+			x3 = x1;
 		}
 
-		lambda = mid;
+		double m = (x0 + x3) / 2;
+		double lg = x3 - x0;
+		double x1 = m - lg / 2;
+		double x2 = m + lg / 2;
 
-		mid = (lambdaInf + lambdaSup) / 2;
-
+		i = i + 1;
 	}
 
-	return(mid);
+	res[0] = m;
+	res[1] = MC_Put(Path, res[0], r, K, T);
+
+	return(res);
 }
 
 
-double MC_Put_final(int nbSim, int Nt, double vol, double spot, double r, double K, double T, double seuil, double inf, double sup)
-{
-	double PayoffsCV = 0;
-
-	double lambda = minlambda(seuil, inf, sup, nbSim, Nt, vol, spot, r, K, T);
-
-	for (int i = 0; i<nbSim; i++)
-	{
-		PayoffsCV = PayoffsCV + Sim(Nt, vol, spot, r, K, T, lambda) / nbSim;
-	}
-
-	return(PayoffsCV);
-}

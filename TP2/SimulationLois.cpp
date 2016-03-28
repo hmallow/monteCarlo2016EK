@@ -1,14 +1,14 @@
 #include "SimulationLois.h"
 #include "vector.h"
 #include <stdio.h>
-
+#include <random>
 
 using namespace std;
 
 
 double loiuniforme()
 {
-	return (double)(random());
+	return (double)(rand());
 }
 
 
