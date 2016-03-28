@@ -16,7 +16,11 @@ using namespace std;
 
 vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
 {
+<<<<<<< HEAD
 	int index=INFINITY;
+=======
+	int index = INFINITY;
+>>>>>>> origin/master
 
 	double delta_t = T / Nt;
 
@@ -61,6 +65,10 @@ vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, doub
 	S.insert(S.end(), M.begin(), M.end());
 
 	return(S);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 }
 
 
@@ -68,7 +76,11 @@ vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, doub
 
 vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T)
 {
+<<<<<<< HEAD
 	vector<vector<double>> Path(nbSim, vector<double>(2*(Nt+1), 0.));
+=======
+	vector<vector<double>> Path(nbSim, vector<double>(2 * (Nt + 1), 0.));
+>>>>>>> origin/master
 
 	for (int i = 0; i<nbSim; i++)
 	{
@@ -166,5 +178,8 @@ vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt,
 
 	return(res);
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
