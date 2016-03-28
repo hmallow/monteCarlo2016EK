@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
-//#include <tchar.h>
+#include <tchar.h>
 #include <stdio.h>
 #include <math.h>
 #include <vector>
@@ -17,14 +17,15 @@
 
 using namespace std;
 
-//simulation d'une trajectoire 
-double Sim(int Nt, double vol, double spot, double r, double K, double T, double lambda);
+//simulation d'une trajectoire
+vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, double T);
 
-//Monte-Carlo pour un put americain
-double MC_Put(int nbSim, int Nt, double vol, double spot, double r, double K, double T, double lambda);
+//Simulation de nbSim trajectoires
+vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T);
 
-// trouve le lambda qui minimise la fonction
-double minlambda(double seuil, double inf, double sup, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
+// Montec-Carlo sur une matrice de trajectoires
+double MC_Put(vector<vector<double>> Path, double lambda, double r, double K, double T);
 
-// Monte-Carlo pour un put americain avec le lambda min 
-double MC_Put_final(int nbSim, int Nt, double vol, double spot, double r, double K, double T, double seuil, double inf, double sup);
+// trouve le lambda qui minimise la fonction renvoie le lambda minimum est le resultat du Monte-Carlo correspondant
+vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
+
