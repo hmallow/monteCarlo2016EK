@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C91BDBCF1CAABFE500B3EE64 /* Trajectoires.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */; };
+		C91BDBD21CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91BDBD01CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp */; };
 		C9B9725A1C8C976E007C99A8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972591C8C976E007C99A8 /* main.cpp */; };
 		C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972601C8CA4FF007C99A8 /* Black_Scholes.cpp */; };
 		C9B9726C1C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972631C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp */; };
@@ -31,6 +32,8 @@
 /* Begin PBXFileReference section */
 		C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Trajectoires.cpp; path = ../../Trajectoires.cpp; sourceTree = "<group>"; };
 		C91BDBCE1CAABFE500B3EE64 /* Trajectoires.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Trajectoires.h; path = ../../Trajectoires.h; sourceTree = "<group>"; };
+		C91BDBD01CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EstimateurMonteCarlo.cpp; path = ../../EstimateurMonteCarlo.cpp; sourceTree = "<group>"; };
+		C91BDBD11CAAC71800B3EE64 /* EstimateurMonteCarlo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EstimateurMonteCarlo.h; path = ../../EstimateurMonteCarlo.h; sourceTree = "<group>"; };
 		C9B972561C8C976E007C99A8 /* MonteCarlo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MonteCarlo; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B972591C8C976E007C99A8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C9B972601C8CA4FF007C99A8 /* Black_Scholes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Black_Scholes.cpp; path = ../../Black_Scholes.cpp; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				C9B972591C8C976E007C99A8 /* main.cpp */,
 				C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */,
 				C91BDBCE1CAABFE500B3EE64 /* Trajectoires.h */,
+				C91BDBD01CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp */,
+				C91BDBD11CAAC71800B3EE64 /* EstimateurMonteCarlo.h */,
 			);
 			path = MonteCarlo;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91BDBD21CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp in Sources */,
 				C9B9725A1C8C976E007C99A8 /* main.cpp in Sources */,
 				C9B9726F1C8CA4FF007C99A8 /* SimulationLois.cpp in Sources */,
 				C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */,

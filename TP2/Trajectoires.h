@@ -22,7 +22,7 @@ public:
     std::vector<double>& setPoints();
     std::vector<double> const getPoints();
     
-    
+    void addPoint(double point);
     
 private:
     std::vector<double> points;

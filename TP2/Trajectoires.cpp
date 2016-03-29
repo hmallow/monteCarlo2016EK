@@ -33,5 +33,9 @@ std::vector<double> const Path::getPoints(){
     return points;
 }
 
-
+void Path::addPoint(double point){
+    
+    points.push_back(point);
+    
+}
 
