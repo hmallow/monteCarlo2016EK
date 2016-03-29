@@ -13,16 +13,20 @@
 #include "Trajectoires.h"
 #include <vector>
 
+//classe qui servira a toutes les estimations MC
 class MCEstimator{
     
 public:
     MCEstimator();
+    MCEstimator(std::vector<std::shared_ptr<Path>> paths);
     ~MCEstimator();
     
     std::vector<std::shared_ptr<Path>> & setPaths();
     std::vector<std::shared_ptr<Path>> const getPaths();
     
+    void const addPath(Path & path);
     
+    double computeMean();
     
 private:
     std::vector<std::shared_ptr<Path>> MCPaths;

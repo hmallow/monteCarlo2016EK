@@ -12,17 +12,20 @@
 #include <stdio.h>
 #include <vector>
 
+//une classe pour manipuler les trajectoires
 class Path {
     
 public:
     Path();
-    Path(std::vector<double>& points);
+    Path(std::vector<double>& points); // initier objets avec points
     ~Path();
     
     std::vector<double>& setPoints();
     std::vector<double> const getPoints();
     
     void addPoint(double point);
+    
+    double getLast(); //récuperer la dernière valeur
     
 private:
     std::vector<double> points;

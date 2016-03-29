@@ -39,3 +39,9 @@ void Path::addPoint(double point){
     
 }
 
+double Path::getLast(){
+    
+    return points.back();
+
+}
+

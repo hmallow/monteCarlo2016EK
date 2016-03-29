@@ -7,3 +7,13 @@
 //
 
 #include "EstimateurMonteCarlo.h"
+
+using namespace std;
+
+
+
+void const MCEstimator::addPath(Path & path){
+    
+    shared_ptr<Path> path_ptr = make_shared<Path>(path);
+    MCPaths.push_back(path_ptr);
+}
