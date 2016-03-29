@@ -10,6 +10,7 @@
 #include <iostream>
 //#include <tchar.h>
 #include <stdio.h>
+#include <functional>
 
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define M_PI 3.14159265358979323846
