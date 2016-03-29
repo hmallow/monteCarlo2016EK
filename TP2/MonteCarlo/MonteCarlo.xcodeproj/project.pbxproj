@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91BDBCF1CAABFE500B3EE64 /* Trajectoires.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */; };
 		C9B9725A1C8C976E007C99A8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972591C8C976E007C99A8 /* main.cpp */; };
 		C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972601C8CA4FF007C99A8 /* Black_Scholes.cpp */; };
 		C9B9726C1C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972631C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Trajectoires.cpp; path = ../../Trajectoires.cpp; sourceTree = "<group>"; };
+		C91BDBCE1CAABFE500B3EE64 /* Trajectoires.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Trajectoires.h; path = ../../Trajectoires.h; sourceTree = "<group>"; };
 		C9B972561C8C976E007C99A8 /* MonteCarlo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MonteCarlo; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B972591C8C976E007C99A8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C9B972601C8CA4FF007C99A8 /* Black_Scholes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Black_Scholes.cpp; path = ../../Black_Scholes.cpp; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				C9B972691C8CA4FF007C99A8 /* SimulationLois.h */,
 				C9B9726A1C8CA4FF007C99A8 /* vector.h */,
 				C9B972591C8C976E007C99A8 /* main.cpp */,
+				C91BDBCD1CAABFE500B3EE64 /* Trajectoires.cpp */,
+				C91BDBCE1CAABFE500B3EE64 /* Trajectoires.h */,
 			);
 			path = MonteCarlo;
 			sourceTree = "<group>";
@@ -150,6 +155,7 @@
 				C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */,
 				C9B9726E1C8CA4FF007C99A8 /* ProjetBruchetDo.cpp in Sources */,
 				C9B9726C1C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp in Sources */,
+				C91BDBCF1CAABFE500B3EE64 /* Trajectoires.cpp in Sources */,
 				C9B9726D1C8CA4FF007C99A8 /* MonteCarlo_Put.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +273,7 @@
 				C9B9725F1C8C976E007C99A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
