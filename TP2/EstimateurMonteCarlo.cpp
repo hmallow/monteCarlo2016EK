@@ -53,18 +53,40 @@ vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     double l_max = 1e9;
     double min = l_min;
     double max = l_max;
-    double max_it = 1e4;
+    double max_it = 1e3;
     int it = 0;
     MCEstimator estim = MCEstimator();
     
     //boucle de dichotomie
     while (it < max_it && (max-min) > epsilon) {
         double mil = (max - min)*0.5;
+        
+        //calcul valeur centrale
         shared_ptr<SetOfPaths> M_ptr = make_shared<SetOfPaths>(Z-martingales*mil);
         estim.setPaths(M_ptr);
         double val_m = estim.computeMeanSup();
+        
+        //calcul f(min)
+        M_ptr = make_shared<SetOfPaths>(Z-martingales*min);
+        estim.setPaths(M_ptr);
+        double val_inf = estim.computeMeanSup();
+        
+        //calcul f(max)
+        M_ptr = make_shared<SetOfPaths>(Z-martingales*max);
+        estim.setPaths(M_ptr);
+        double val_sup = estim.computeMeanSup();
+        
+        //comparaison
+        if (val_inf*val_m > 0) {
+            min = mil;
+        }
+        else{
+            max = mil;
+        }
+        
     }
     vector<double> a;
+    
     return a;
 }
 
