@@ -52,12 +52,18 @@ double Path:: getMax(){
 
 Path operator+(Path const & P1, Path const & P2){
     
-    vector<double> sum = P1.Points() + P2.Points();
+    vector<double> sum;
+    for (int i = 0; i < P1.Points().size(); i++) {
+        sum.push_back(P1.Points()[i] + P2.Points()[i]);
+    }
     return Path(sum);
 }
 
 Path operator*(Path const & P, double const lambda){
-    vector<double> scal = lambda*P.Points();
+    vector<double> scal;
+    for (int i = 0; i < P.Points().size(); i++) {
+        scal.push_back(lambda*P.Points()[i]);
+    }
     return Path(scal);
 }
 

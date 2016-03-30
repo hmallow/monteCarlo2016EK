@@ -32,6 +32,6 @@ private:
 };
 
 //minimisation en lambda
-vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales);
+double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales);
 
 #endif /* defined(__MonteCarlo__EstimateurMonteCarlo__) */

@@ -45,12 +45,12 @@ double MCEstimator::computeMeanSup(){
     return mean;
 }
 
-vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
+double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     
     //initialisation
-    double epsilon = 1e-9;
+    double epsilon = 1e-2;
     double l_min = 0;
-    double l_max = 1e9;
+    double l_max = 1e2;
     double min = l_min;
     double max = l_max;
     double max_it = 1e3;
@@ -59,7 +59,7 @@ vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     
     //boucle de dichotomie
     while (it < max_it && (max-min) > epsilon) {
-        double mil = (max - min)*0.5;
+        double mil = (max + min)*0.5;
         
         //calcul valeur centrale
         shared_ptr<SetOfPaths> M_ptr = make_shared<SetOfPaths>(Z-martingales*mil);
@@ -85,9 +85,7 @@ vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
         }
         
     }
-    vector<double> a;
-    
-    return a;
+    return 0.5*(max + min);
 }
 
 

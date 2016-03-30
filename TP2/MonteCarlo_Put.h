@@ -17,8 +17,8 @@
 
 using namespace std;
 
-//simulation d'une trajectoire 
-vector<double> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T);
+//simulation d'une trajectoire
+vector<vector<double>> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T);
 
 //Simulation de nbSim trajectoires
 vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T);

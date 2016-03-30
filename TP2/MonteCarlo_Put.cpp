@@ -14,7 +14,7 @@
 using namespace std;
 
 
-vector<double> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
+vector<vector<double>> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
 {
 	int index=INFINITY;
 
@@ -58,10 +58,11 @@ vector<double> & Sim_S_M(int Nt, double vol, double spot, double r, double K, do
 			M[nt] = M[nt - 1];
 		}
 	}
-
-	S.insert(S.end(), M.begin(), M.end());
-
-	return(S);
+    
+    vector<vector<double>> res;
+    res.push_back(S);
+    res.push_back(M);
+    return res;
 
 }
 

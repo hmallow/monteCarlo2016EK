@@ -14,6 +14,7 @@
 #include "Black_Scholes.h"
 #include "MonteCarlo_Put.h"
 #include "MonteCarlo_Geo.h"
+#include "EstimateurMonteCarlo.h"
 
 
 
@@ -41,6 +42,23 @@ int main()
 	double Prixput=callput(spot, K, T, r, 0, vol, -1);
 
 	cout << "Le prix d'un put europeen est : "<< Prixput << endl;
+    
+    //creation de l'ensemble de minimisation
+    vector<shared_ptr<Path>> paths;
+    vector<shared_ptr<Path>> marts;
+    for (int i = 0; i < 300; i++) {
+        auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
+        Path Z_path = sim[0];
+        Path M_path = sim[1];
+        paths.push_back(make_shared<Path>(Z_path));
+        marts.push_back(make_shared<Path>(M_path));
+    }
+    SetOfPaths MiniSet = SetOfPaths(paths);
+    SetOfPaths MartSet = SetOfPaths(marts);
+    
+    //
+    
+    
 
 	/*vector<vector<double>> Path = Paths(nbSim, Nt, vol, spot, r, K, T);
 

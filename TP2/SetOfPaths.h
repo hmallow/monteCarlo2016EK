@@ -17,7 +17,7 @@ class SetOfPaths{
     
 public:
     SetOfPaths();
-    SetOfPaths(std::vector<shared_ptr<Path>> paths);
+    SetOfPaths(std::vector<std::shared_ptr<Path>> paths);
     SetOfPaths(SetOfPaths const &S);
     ~SetOfPaths();
     
@@ -26,7 +26,7 @@ public:
     
     void const addPath(Path & path);
     
-    vector<double> & computeSups() const;
+    std::vector<double> & computeSups() const;
     
 private:
     std::vector<std::shared_ptr<Path>> paths;
