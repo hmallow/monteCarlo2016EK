@@ -44,6 +44,8 @@ void const SetOfPaths::addPath(Path & path){
     paths.push_back(path_ptr);
 }
 
+//retourne un tableau des sups (1 par trajectoire)
+//se base sur la methode sup de la classe Path
 vector<double> & SetOfPaths::computeSups() const{
     vector<double> sups;
     for (int i = 0; i < paths.size(); i++){
@@ -51,6 +53,9 @@ vector<double> & SetOfPaths::computeSups() const{
     }
     return sups;
 }
+
+
+//surcharge des operateurs
 
 SetOfPaths operator+(SetOfPaths const & S1, SetOfPaths const& S2){
     if (S1.getPaths().size() != S2.getPaths().size()) {

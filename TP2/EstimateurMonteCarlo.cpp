@@ -24,3 +24,14 @@ MCEstimator::~MCEstimator(){
     
 }
 
+//calcule l'esperance empirique
+double MCEstimator::computeMean(){
+    double mean = 0;
+    vector<double> sups = MCPaths.computeSups();
+    int N = sups.size();
+    for (int i = 0; i < N; i++) {
+        mean += sups[i];
+    }
+    mean = double(mean/N);
+    return mean;
+}

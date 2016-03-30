@@ -25,12 +25,13 @@ public:
     std::vector<std::shared_ptr<Path>> const getPaths();
     
     double computeMean();
-    
-    vector<double>& computeSups();
         
 private:
     SetOfPaths MCPaths;
     
 };
+
+//minimisation en lambda
+vector<double> minLambda(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
 
 #endif /* defined(__MonteCarlo__EstimateurMonteCarlo__) */
