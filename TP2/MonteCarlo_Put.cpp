@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "MonteCarlo_Put.h"
 #include "vector.h"
-#include "SimulationLois.h"
+
 #include "Black_Scholes.h"
 
 #define MAX(a,b) (((a)>(b))?(a):(b))

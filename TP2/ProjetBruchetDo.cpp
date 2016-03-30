@@ -37,7 +37,6 @@ int main()
 	double a = 0.6;
 	double b = 1.3;
 
-	
 
 	double Prixput=callput(spot, K, T, r, 0, vol, -1);
 

@@ -46,7 +46,7 @@ void const SetOfPaths::addPath(Path & path){
 
 //retourne un tableau des sups (1 par trajectoire)
 //se base sur la methode sup de la classe Path
-vector<double> & SetOfPaths::computeSups() const{
+vector<double> SetOfPaths::computeSups() const{
     vector<double> sups;
     for (int i = 0; i < paths.size(); i++){
         sups.push_back(paths[i]->getMax());

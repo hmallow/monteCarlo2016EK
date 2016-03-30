@@ -13,6 +13,7 @@
 #include <math.h>
 #include <vector>
 
+#include "SimulationLois.h"
 #include "Black_Scholes.h"
 
 using namespace std;
