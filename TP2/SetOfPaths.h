@@ -21,7 +21,7 @@ public:
     SetOfPaths(SetOfPaths const &S);
     ~SetOfPaths();
     
-    void setPaths(std::vector<std::shared_ptr<Path>>& paths);
+    void setPaths(std::vector<std::shared_ptr<Path>>& new_paths);
     std::vector<std::shared_ptr<Path>> getPaths() const;
     
     void const addPath(Path & path);

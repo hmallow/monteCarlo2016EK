@@ -10,10 +10,32 @@
 
 using namespace std;
 
+SetOfPaths::SetOfPaths(){
+    
+}
+
+SetOfPaths::SetOfPaths(std::vector<std::shared_ptr<Path>> paths){
+    paths = paths;
+}
+
 SetOfPaths::SetOfPaths(SetOfPaths const& S){
     
     paths = S.getPaths();
     
+}
+
+SetOfPaths::~SetOfPaths(){
+    
+}
+
+void SetOfPaths::setPaths(std::vector<std::shared_ptr<Path>>& new_paths){
+    
+    paths = new_paths;
+}
+
+std::vector<std::shared_ptr<Path>> SetOfPaths::getPaths() const{
+    
+    return paths;
 }
 
 void const SetOfPaths::addPath(Path & path){
