@@ -17,7 +17,7 @@ class SetOfPaths{
     
 public:
     SetOfPaths();
-    SetOfPaths(std::vector<std::shared_ptr<Path>> paths);
+    SetOfPaths(std::vector<std::shared_ptr<Path>> new_paths);
     SetOfPaths(SetOfPaths const &S);
     ~SetOfPaths();
     

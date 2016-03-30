@@ -83,6 +83,7 @@ double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
         else{
             max = mil;
         }
+        it++;
         
     }
     return 0.5*(max + min);

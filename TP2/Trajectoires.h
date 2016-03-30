@@ -18,7 +18,7 @@ class Path {
     
 public:
     Path();
-    Path(std::vector<double>& points); // initier objets avec points
+    Path(std::vector<double>& new_points); // initier objets avec points
     ~Path();
     
     std::vector<double>& Points();

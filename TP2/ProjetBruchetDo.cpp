@@ -48,18 +48,23 @@ int main()
     vector<shared_ptr<Path>> marts;
     for (int i = 0; i < 300; i++) {
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
-        Path Z_path = sim[0];
-        Path M_path = sim[1];
+        Path Z_path = Path(sim[0]);
+        Path M_path = Path(sim[1]);
         paths.push_back(make_shared<Path>(Z_path));
         marts.push_back(make_shared<Path>(M_path));
     }
     SetOfPaths MiniSet = SetOfPaths(paths);
     SetOfPaths MartSet = SetOfPaths(marts);
     
+    //Tests
+    MCEstimator estim = MCEstimator(make_shared<SetOfPaths>(MiniSet));
+    auto sups = MiniSet.computeSups();
+    auto Esup = estim.computeMeanSup();
+    
     //Recuperation du lambda min
     double l_min = minLambda(MiniSet, MartSet);
     
-    
+    cout << "lambda vaut " << l_min << endl;
 
 	/*vector<vector<double>> Path = Paths(nbSim, Nt, vol, spot, r, K, T);
 

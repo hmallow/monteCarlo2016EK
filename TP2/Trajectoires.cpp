@@ -14,9 +14,9 @@ Path::Path(){
     
 }
 
-Path::Path(vector<double>& points){
+Path::Path(vector<double>& new_points){
     
-    points = points;
+    points = new_points;
 }
 
 Path::~Path(){
@@ -46,8 +46,13 @@ double Path::getLast(){
 }
 
 double Path:: getMax(){
-    return *max_element(points.begin(), points.end());
-    
+    double max = points[0];
+    for (auto element : points){
+        if (element > max) {
+            max = element;
+        }
+    }
+    return max;
 }
 
 Path operator+(Path const & P1, Path const & P2){

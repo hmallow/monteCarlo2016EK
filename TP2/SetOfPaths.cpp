@@ -14,8 +14,8 @@ SetOfPaths::SetOfPaths(){
     
 }
 
-SetOfPaths::SetOfPaths(std::vector<std::shared_ptr<Path>> paths){
-    paths = paths;
+SetOfPaths::SetOfPaths(std::vector<std::shared_ptr<Path>> new_paths){
+    paths = new_paths;
 }
 
 SetOfPaths::SetOfPaths(SetOfPaths const& S){
