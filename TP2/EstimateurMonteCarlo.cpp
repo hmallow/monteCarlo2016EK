@@ -42,3 +42,5 @@ double MCEstimator::Lambda() const {
     
     return lambda;
 }
+
+

@@ -11,8 +11,7 @@
 
 #include <stdio.h>
 #include <vector>
-
-//TO DO : surcharger les + et *lambda pour les trajectoires
+#include "vector.h"
 
 //une classe pour manipuler les trajectoires
 class Path {
@@ -33,5 +32,10 @@ private:
     std::vector<double> points;
     
 };
+
+
+Path operator+(Path const & P1, Path const & P2);
+
+Path operator*(Path const & P, double const lambda);
 
 #endif /* defined(__MonteCarlo__Trajectoires__) */

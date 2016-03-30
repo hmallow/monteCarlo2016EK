@@ -33,6 +33,8 @@ public:
     double Lambda() const;
     double & Lambda();
     
+    double findMinLambda();
+    
 private:
     std::vector<std::shared_ptr<Path>> MCPaths;
     double lambda;
