@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <vector>
 
+//TO DO : surcharger les + et *lambda pour les trajectoires
+
 //une classe pour manipuler les trajectoires
 class Path {
     
@@ -20,8 +22,8 @@ public:
     Path(std::vector<double>& points); // initier objets avec points
     ~Path();
     
-    std::vector<double>& setPoints();
-    std::vector<double> const getPoints();
+    std::vector<double>& Points();
+    std::vector<double> Points() const;
     
     void addPoint(double point);
     

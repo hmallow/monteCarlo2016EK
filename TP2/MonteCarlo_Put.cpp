@@ -14,7 +14,7 @@
 using namespace std;
 
 
-vector<double> Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
+vector<double> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T)
 {
 	int index=INFINITY;
 

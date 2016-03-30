@@ -18,7 +18,7 @@ class MCEstimator{
     
 public:
     MCEstimator();
-    MCEstimator(std::vector<std::shared_ptr<Path>> paths);
+    MCEstimator(std::vector<std::shared_ptr<Path>> paths, std::vector<std::shared_ptr<Path>> martingales);
     ~MCEstimator();
     
     std::vector<std::shared_ptr<Path>> & setPaths();
@@ -28,8 +28,16 @@ public:
     
     double computeMean();
     
+    double computeSup();
+    
+    double Lambda() const;
+    double & Lambda();
+    
 private:
     std::vector<std::shared_ptr<Path>> MCPaths;
+    double lambda;
+    std::vector<std::shared_ptr<Path>> MartingalePaths;
+    
     
 };
 

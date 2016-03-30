@@ -23,12 +23,12 @@ Path::~Path(){
     
 }
 
-std::vector<double>& Path::setPoints(){
+std::vector<double>& Path::Points(){
     
     return points;
 }
 
-std::vector<double> const Path::getPoints(){
+std::vector<double> Path::Points() const{
     
     return points;
 }
