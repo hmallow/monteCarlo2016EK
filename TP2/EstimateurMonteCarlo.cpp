@@ -18,21 +18,9 @@ MCEstimator::MCEstimator(){
 MCEstimator::MCEstimator(std::vector<std::shared_ptr<Path>> paths, std::vector<std::shared_ptr<Path>> martingales){
     
     MCPaths = paths;
-    MartingalePaths = martingales;
 }
 
 MCEstimator::~MCEstimator(){
     
-}
-
-
-double & MCEstimator::Lambda(){
-    
-    return lambda;
-}
-
-double MCEstimator::Lambda() const {
-    
-    return lambda;
 }
 

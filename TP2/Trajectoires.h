@@ -27,6 +27,7 @@ public:
     void addPoint(double point);
     
     double getLast(); //récuperer la dernière valeur
+    double getMax();
     
 private:
     std::vector<double> points;

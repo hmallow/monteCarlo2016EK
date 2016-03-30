@@ -26,14 +26,10 @@ public:
     
     double computeMean();
     
-    double Lambda() const;
-    double & Lambda();
+    vector<double>& computeSups();
         
 private:
     SetOfPaths MCPaths;
-    double lambda;
-    SetOfPaths MartingalePaths;
-    
     
 };
 

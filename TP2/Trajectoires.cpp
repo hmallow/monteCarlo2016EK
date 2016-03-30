@@ -45,6 +45,11 @@ double Path::getLast(){
 
 }
 
+double Path:: getMax(){
+    return *max_element(points.begin(), points.end());
+    
+}
+
 Path operator+(Path const & P1, Path const & P2){
     
     vector<double> sum = P1.Points() + P2.Points();

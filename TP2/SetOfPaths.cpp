@@ -22,6 +22,13 @@ void const SetOfPaths::addPath(Path & path){
     paths.push_back(path_ptr);
 }
 
+vector<double> & SetOfPaths::computeSups() const{
+    vector<double> sups;
+    for (int i = 0; i < paths.size(); i++){
+        sups.push_back(paths[i]->getMax());
+    }
+    return sups;
+}
 
 SetOfPaths operator+(SetOfPaths const & S1, SetOfPaths const& S2){
     if (S1.getPaths().size() != S2.getPaths().size()) {
