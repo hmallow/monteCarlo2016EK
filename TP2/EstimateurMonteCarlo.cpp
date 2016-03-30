@@ -43,4 +43,9 @@ double MCEstimator::Lambda() const {
     return lambda;
 }
 
-
+double MCEstimator::findMinLambda(){
+    
+    double lambda = 0;
+    
+    return lambda;
+}

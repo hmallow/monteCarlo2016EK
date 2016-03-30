@@ -10,7 +10,7 @@
 #define __MonteCarlo__EstimateurMonteCarlo__
 
 #include <stdio.h>
-#include "Trajectoires.h"
+#include "SetOfPaths.h"
 #include <vector>
 
 //classe qui servira a toutes les estimations MC
