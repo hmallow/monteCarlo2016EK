@@ -24,21 +24,15 @@ public:
     std::vector<std::shared_ptr<Path>> & setPaths();
     std::vector<std::shared_ptr<Path>> const getPaths();
     
-    void const addPath(Path & path);
-    
     double computeMean();
-    
-    double computeSup();
     
     double Lambda() const;
     double & Lambda();
-    
-    double findMinLambda();
-    
+        
 private:
-    std::vector<std::shared_ptr<Path>> MCPaths;
+    SetOfPaths MCPaths;
     double lambda;
-    std::vector<std::shared_ptr<Path>> MartingalePaths;
+    SetOfPaths MartingalePaths;
     
     
 };

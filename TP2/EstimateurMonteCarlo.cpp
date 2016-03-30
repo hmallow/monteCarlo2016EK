@@ -26,13 +26,6 @@ MCEstimator::~MCEstimator(){
 }
 
 
-
-void const MCEstimator::addPath(Path & path){
-    
-    shared_ptr<Path> path_ptr = make_shared<Path>(path);
-    MCPaths.push_back(path_ptr);
-}
-
 double & MCEstimator::Lambda(){
     
     return lambda;
@@ -43,9 +36,3 @@ double MCEstimator::Lambda() const {
     return lambda;
 }
 
-double MCEstimator::findMinLambda(){
-    
-    double lambda = 0;
-    
-    return lambda;
-}

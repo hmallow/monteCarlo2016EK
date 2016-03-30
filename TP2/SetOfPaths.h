@@ -10,6 +10,7 @@
 #define __MonteCarlo__SetOfPaths__
 
 #include <stdio.h>
+#include <iostream>
 #include "Trajectoires.h"
 
 class SetOfPaths{
@@ -17,11 +18,22 @@ class SetOfPaths{
 public:
     SetOfPaths();
     SetOfPaths(std::vector<shared_ptr<Path>> paths);
+    SetOfPaths(SetOfPaths const &S);
     ~SetOfPaths();
+    
+    void setPaths(std::vector<std::shared_ptr<Path>>& paths);
+    std::vector<std::shared_ptr<Path>> getPaths() const;
+    
+    void const addPath(Path & path);
+    
+    double computeSup();
     
 private:
     std::vector<std::shared_ptr<Path>> paths;
     
 };
+
+SetOfPaths operator+(SetOfPaths const & S1, SetOfPaths const& S2);
+SetOfPaths operator*(SetOfPaths const& S1, double lambda);
 
 #endif /* defined(__MonteCarlo__SetOfPaths__) */
