@@ -15,19 +15,28 @@ MCEstimator::MCEstimator(){
     
 }
 
-MCEstimator::MCEstimator(std::vector<std::shared_ptr<Path>> paths, std::vector<std::shared_ptr<Path>> martingales){
+MCEstimator::MCEstimator(shared_ptr<SetOfPaths> SOPaths){
     
-    MCPaths = paths;
+    MCPaths = SOPaths;
 }
 
 MCEstimator::~MCEstimator(){
     
 }
 
+void MCEstimator::setPaths(shared_ptr<SetOfPaths> const& newSetPaths){
+    MCPaths = newSetPaths;
+}
+
+std::shared_ptr<SetOfPaths> & MCEstimator::getPaths(){
+    return MCPaths;
+}
+
+
 //calcule l'esperance empirique
-double MCEstimator::computeMean(){
+double MCEstimator::computeMeanSup(){
     double mean = 0;
-    vector<double> sups = MCPaths.computeSups();
+    vector<double> sups = MCPaths->computeSups();
     int N = sups.size();
     for (int i = 0; i < N; i++) {
         mean += sups[i];
@@ -35,3 +44,29 @@ double MCEstimator::computeMean(){
     mean = double(mean/N);
     return mean;
 }
+
+vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
+    
+    //initialisation
+    double epsilon = 1e-9;
+    double l_min = 0;
+    double l_max = 1e9;
+    double min = l_min;
+    double max = l_max;
+    double max_it = 1e4;
+    int it = 0;
+    MCEstimator estim = MCEstimator();
+    
+    //boucle de dichotomie
+    while (it < max_it && (max-min) > epsilon) {
+        double mil = (max - min)*0.5;
+        shared_ptr<SetOfPaths> M_ptr = make_shared<SetOfPaths>(Z-martingales*mil);
+        estim.setPaths(M_ptr);
+        double val_m = estim.computeMeanSup();
+    }
+    vector<double> a;
+    return a;
+}
+
+
+

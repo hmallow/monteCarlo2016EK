@@ -18,20 +18,20 @@ class MCEstimator{
     
 public:
     MCEstimator();
-    MCEstimator(std::vector<std::shared_ptr<Path>> paths, std::vector<std::shared_ptr<Path>> martingales);
+    MCEstimator(std::shared_ptr<SetOfPaths> SOPaths);
     ~MCEstimator();
     
-    std::vector<std::shared_ptr<Path>> & setPaths();
-    std::vector<std::shared_ptr<Path>> const getPaths();
+    void setPaths(std::shared_ptr<SetOfPaths> const& newSetPaths);
+    std::shared_ptr<SetOfPaths> & getPaths();
     
-    double computeMean();
+    double computeMeanSup();
         
 private:
-    SetOfPaths MCPaths;
+    std::shared_ptr<SetOfPaths> MCPaths;
     
 };
 
 //minimisation en lambda
-vector<double> minLambda(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
+vector<double> minLambda(SetOfPaths const& Z, SetOfPaths const& martingales);
 
 #endif /* defined(__MonteCarlo__EstimateurMonteCarlo__) */

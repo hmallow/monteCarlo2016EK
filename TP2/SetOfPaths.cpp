@@ -78,3 +78,7 @@ SetOfPaths operator*(SetOfPaths const& S1, double lambda){
     }
     return SetOfPaths(scals);
 }
+
+SetOfPaths operator-(SetOfPaths const& S1, SetOfPaths const& S2){
+    return S1+S2*(-1);
+}
