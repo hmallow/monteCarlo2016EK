@@ -56,7 +56,8 @@ int main()
     SetOfPaths MiniSet = SetOfPaths(paths);
     SetOfPaths MartSet = SetOfPaths(marts);
     
-    //
+    //Recuperation du lambda min
+    double l_min = minLambda(MiniSet, MartSet);
     
     
 
@@ -64,13 +65,14 @@ int main()
 
 	double res = MC_Put(Path, lambda, r, K, T);
 
-	cout << "res : " << res << endl;*/
+	cout << "res : " << res << endl;
 
 	vector<double> PutUS = minlambda_MC(seuil, a, b, nbSim, Nt, vol, spot, r, K, T);
 
 	cout << "Le prix d'un put US est : " << PutUS[1] << endl;
 
 	cout << "Le lambda min est : " << PutUS[0] << endl;
+    */
 	
 
 	return 0;

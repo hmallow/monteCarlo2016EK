@@ -20,6 +20,7 @@ using namespace std;
 //simulation d'une trajectoire
 vector<vector<double>> & Sim_S_M(int Nt, double vol, double spot, double r, double K, double T);
 
+/*
 //Simulation de nbSim trajectoires
 vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T);
 
@@ -29,4 +30,4 @@ double MC_Put(vector<vector<double>> Path, double lambda, double r, double K, do
 // trouve le lambda qui minimise la fonction renvoie le lambda minimum est le resultat du Monte-Carlo correspondant
 
 vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
-
+*/

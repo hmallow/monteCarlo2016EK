@@ -68,7 +68,7 @@ vector<vector<double>> & Sim_S_M(int Nt, double vol, double spot, double r, doub
 
 
 
-
+/*
 vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T)
 {
 
@@ -172,3 +172,4 @@ vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt,
 	return(res);
 }
 
+*/
