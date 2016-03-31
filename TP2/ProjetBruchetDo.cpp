@@ -63,6 +63,19 @@ int main()
     double l_min = minLambda(MiniSet, MartSet);
     
     cout << "lambda vaut " << l_min << endl;
+    
+    //creation de l'ensemble de calcul
+    vector<shared_ptr<Path>> computePaths;
+    for (int i = 0; i < nbSim; i++) {
+        auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
+        Path path = Path(sim[0]) + Path(sim[1])*(-1*l_min);
+        computePaths.push_back(make_shared<Path>(path));
+    }
+    SetOfPaths ComputeSet = SetOfPaths(computePaths);
+    estim.setPaths(make_shared<SetOfPaths>(ComputeSet));
+    double prix = estim.computeMeanSup();
+    
+    cout << "le prix de l'option US est :" << prix <<endl;
 
 	/*vector<vector<double>> Path = Paths(nbSim, Nt, vol, spot, r, K, T);
 

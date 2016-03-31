@@ -33,7 +33,7 @@ std::shared_ptr<SetOfPaths> & MCEstimator::getPaths(){
 }
 
 
-//calcule l'esperance empirique
+//calcule l'esperance du sup empirique
 double MCEstimator::computeMeanSup(){
     double mean = 0;
     vector<double> sups = MCPaths->computeSups();
@@ -44,6 +44,7 @@ double MCEstimator::computeMeanSup(){
     mean = double(mean/N);
     return mean;
 }
+
 
 double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     

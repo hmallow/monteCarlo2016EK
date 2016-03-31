@@ -44,9 +44,8 @@ vector<vector<double>> Sim_S_M(int Nt, double vol, double spot, double r, double
 		{
 			index = nt;
 		}
-		else
-		{
-		}
+    }
+    for (int nt = 1; nt < (Nt+1); nt++) {
 
 		// Calcul les valeurs de la martingale choisie
 		if (nt>=index)
