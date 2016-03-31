@@ -71,7 +71,9 @@ int main()
     vector<shared_ptr<Path>> computePaths;
     for (int i = 0; i < nbSim; i++) {
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
-        Path path = Path(sim[0]) + Path(sim[1])*(-1*l_min);
+        Path Z_path = Path(sim[0]);
+        Z_path.convertPut(K);
+        Path path = Z_path + Path(sim[1])*(-1*l_min);
         computePaths.push_back(make_shared<Path>(path));
     }
     SetOfPaths ComputeSet = SetOfPaths(computePaths);
