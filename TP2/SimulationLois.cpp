@@ -9,7 +9,7 @@ using namespace std;
 
 double loiuniforme()
 {
-    mt19937::result_type seed = time(0);
+    mt19937::result_type seed = clock();
     auto real_rand = std::bind(std::uniform_real_distribution<double>(0,1), mt19937(seed));
     return real_rand();
 }
