@@ -26,6 +26,8 @@ public:
     
     void addPoint(double point);
     
+    void convertPut(double strike);
+    
     double getLast(); //récuperer la dernière valeur
     double getMax();
     
@@ -34,6 +36,7 @@ private:
     
 };
 
+//Path convertPut(Path & path, double strike);
 
 Path operator+(Path const & P1, Path const & P2);
 

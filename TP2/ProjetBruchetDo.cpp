@@ -47,6 +47,7 @@ int main()
     for (int i = 0; i < 300; i++) {
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
         Path Z_path = Path(sim[0]);
+        Z_path.convertPut(K);
         Path M_path = Path(sim[1]);
         paths.push_back(make_shared<Path>(Z_path));
         marts.push_back(make_shared<Path>(M_path));
@@ -63,6 +64,8 @@ int main()
     double l_min = minLambda(MiniSet, MartSet);
     
     cout << "lambda vaut " << l_min << endl;
+    
+    l_min = 1;
     
     //creation de l'ensemble de calcul
     vector<shared_ptr<Path>> computePaths;

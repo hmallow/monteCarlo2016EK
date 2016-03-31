@@ -39,6 +39,18 @@ void Path::addPoint(double point){
     
 }
 
+void Path::convertPut(double strike){
+    
+    for(int i = 0; i < points.size();i++){
+        if (strike - points[i] > 0) {
+            points[i] = strike - points[i];
+        }
+        else{
+            points[i] = 0;
+        }
+    }
+}
+
 double Path::getLast(){
     
     return points.back();
@@ -54,6 +66,15 @@ double Path:: getMax(){
     }
     return max;
 }
+
+/*Path converPut(Path & path, double strike){
+    vector<double> points;
+    for (double point : path.Points()) {
+        double new_point = (strike-point > 0 ?strike - point:0);
+    }
+    Path putPath = Path(points);
+    return putPath;
+}*/
 
 Path operator+(Path const & P1, Path const & P2){
     
