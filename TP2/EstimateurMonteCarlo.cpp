@@ -49,8 +49,8 @@ double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     
     //initialisation
     double epsilon = 1e-2;
-    double l_min = 0;
-    double l_max = 1e2;
+    double l_min = -10;
+    double l_max = 10;
     double min = l_min;
     double max = l_max;
     double max_it = 1e3;
@@ -59,29 +59,35 @@ double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     
     //boucle de dichotomie
     while (it < max_it && (max-min) > epsilon) {
-        double mil = (max + min)*0.5;
+        double d = 0.25*(3*min + max);
+        double c = 0.5*(min + max);
+        double e = 0.25*(3*max + min);
         
-        //calcul valeur centrale
-        shared_ptr<SetOfPaths> M_ptr = make_shared<SetOfPaths>(Z-martingales*mil);
+        //calcul en c
+        shared_ptr<SetOfPaths> M_ptr = make_shared<SetOfPaths>(Z-martingales*c);
         estim.setPaths(M_ptr);
-        double val_m = estim.computeMeanSup();
+        double val_c = estim.computeMeanSup();
         
-        //calcul f(min)
-        M_ptr = make_shared<SetOfPaths>(Z-martingales*min);
+        //calcul en d
+        M_ptr = make_shared<SetOfPaths>(Z-martingales*d);
         estim.setPaths(M_ptr);
-        double val_inf = estim.computeMeanSup();
+        double val_d = estim.computeMeanSup();
         
-        //calcul f(max)
-        M_ptr = make_shared<SetOfPaths>(Z-martingales*max);
+        //calcul en e
+        M_ptr = make_shared<SetOfPaths>(Z-martingales*e);
         estim.setPaths(M_ptr);
-        double val_sup = estim.computeMeanSup();
+        double val_e = estim.computeMeanSup();
         
         //comparaison
-        if (val_inf*val_m > 0) {
-            min = mil;
+        if (val_c > val_e) {
+            min = c;
+        }
+        else if (val_d < val_c){
+            max = c;
         }
         else{
-            max = mil;
+            min = d;
+            max = e;
         }
         it++;
         
