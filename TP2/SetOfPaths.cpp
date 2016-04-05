@@ -8,6 +8,8 @@
 
 #include "SetOfPaths.h"
 
+#include <memory>
+
 using namespace std;
 
 SetOfPaths::SetOfPaths(){

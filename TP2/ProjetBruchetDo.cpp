@@ -16,6 +16,8 @@
 #include "MonteCarlo_Geo.h"
 #include "EstimateurMonteCarlo.h"
 
+#include <memory>
+
 
 
 using namespace std;
@@ -82,19 +84,6 @@ int main()
     
     cout << "le prix de l'option US est :" << prix <<endl;
 
-	/*vector<vector<double>> Path = Paths(nbSim, Nt, vol, spot, r, K, T);
-
-	double res = MC_Put(Path, lambda, r, K, T);
-
-	cout << "res : " << res << endl;
-
-	vector<double> PutUS = minlambda_MC(seuil, a, b, nbSim, Nt, vol, spot, r, K, T);
-
-	cout << "Le prix d'un put US est : " << PutUS[1] << endl;
-
-	cout << "Le lambda min est : " << PutUS[0] << endl;
-    */
-	
 
 	return 0;
 

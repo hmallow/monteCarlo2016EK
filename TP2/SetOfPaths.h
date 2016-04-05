@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "Trajectoires.h"
+#include <memory>
 
 class SetOfPaths{
     

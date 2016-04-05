@@ -8,6 +8,8 @@
 
 #include "EstimateurMonteCarlo.h"
 
+#include <memory>
+
 using namespace std;
 
 

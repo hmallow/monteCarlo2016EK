@@ -8,6 +8,7 @@
 
 #include "Trajectoires.h"
 
+
 using namespace std;
 
 Path::Path(){

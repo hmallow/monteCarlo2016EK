@@ -79,17 +79,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Black_Scholes.cpp" />
+    <ClCompile Include="EstimateurMonteCarlo.cpp" />
     <ClCompile Include="MonteCarlo_Geo.cpp" />
     <ClCompile Include="ProjetBruchetDo.cpp" />
     <ClCompile Include="MonteCarlo_Put.cpp" />
+    <ClCompile Include="SetOfPaths.cpp" />
     <ClCompile Include="SimulationLois.cpp" />
+    <ClCompile Include="Trajectoires.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Black_Scholes.h" />
+    <ClInclude Include="EstimateurMonteCarlo.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="MonteCarlo_Geo.h" />
     <ClInclude Include="MonteCarlo_Put.h" />
+    <ClInclude Include="SetOfPaths.h" />
     <ClInclude Include="SimulationLois.h" />
+    <ClInclude Include="Trajectoires.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
