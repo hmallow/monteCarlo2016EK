@@ -65,7 +65,24 @@ vector<vector<double>> Sim_S_M(int Nt, double vol, double spot, double r, double
 
 }
 
-
+vector<double> Sim_S(int Nt, int horizon, double vol, double spot, double r, double T){
+    vector<double> points;
+    vector<double> lnS;
+    // Initialisation
+    int index=INFINITY;
+    double delta_t = T / Nt;
+    points.push_back(spot);
+    lnS.push_back(log(spot));
+    
+    for (int i = 1; i < horizon; i++)
+    {
+        double normale = loinormale()[0];
+        double new_point = points.back()*exp(vol*sqrt(delta_t)*normale + (r - vol*vol / 2)*delta_t);
+        points.push_back(new_point);
+    }
+    
+    return points;
+}
 
 /*
 vector<vector<double>> Paths(int nbSim, int Nt, double vol, double spot, double r, double K, double T)

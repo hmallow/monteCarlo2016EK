@@ -32,3 +32,5 @@ double MC_Put(vector<vector<double>> Path, double lambda, double r, double K, do
 
 vector<double> minlambda_MC(double seuil, double a, double b, int nbSim, int Nt, double vol, double spot, double r, double K, double T);
 */
+
+vector<double> Sim_S(int Nt, int horizon, double vol, double spot, double r, double T);

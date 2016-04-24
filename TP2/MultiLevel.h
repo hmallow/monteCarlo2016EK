@@ -13,6 +13,7 @@
 #include <vector>
 #include "EstimateurMonteCarlo.h"
 #include "MonteCarlo_Geo.h"
+#include "MonteCarlo_Put.h"
 
 
 class MultiLevel{
@@ -24,7 +25,7 @@ public:
     
     std::vector<vector<double>> computeTaus(Path const& EuropeanOption);
     
-    Path computeM_k(Path const& underlying,vector<double> const& tau_i);
+    Path computeM_k(Path const& underlying,vector<double> const& tau_i, int k_l);
     
     double step_n_0();
     

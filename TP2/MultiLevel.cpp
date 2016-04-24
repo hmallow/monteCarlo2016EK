@@ -45,9 +45,17 @@ vector<vector<double>> MultiLevel::computeTaus(Path const& EuropeanOption){
     return taus;
 }
 
-Path MultiLevel::computeM_k(Path const& underlying,vector<double> const& tau_i){
+Path MultiLevel::computeM_k(Path const& underlying,vector<double> const& tau_i, int k_l){
     
+    int J = underlying.Points().size();
     vector<double> new_points;
+    for (int j = 0; j < J ; j++) {
+        double sum = 0;
+        for (int k = 0; k < k_l; k++) {
+            
+            double Z_tau_i;
+        }
+    }
     Path M_k = Path(new_points);
     return M_k;
     
