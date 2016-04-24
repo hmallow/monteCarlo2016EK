@@ -16,7 +16,7 @@
 		C9B9726D1C8CA4FF007C99A8 /* MonteCarlo_Put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972651C8CA4FF007C99A8 /* MonteCarlo_Put.cpp */; };
 		C9B9726E1C8CA4FF007C99A8 /* ProjetBruchetDo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972671C8CA4FF007C99A8 /* ProjetBruchetDo.cpp */; };
 		C9B9726F1C8CA4FF007C99A8 /* SimulationLois.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B972681C8CA4FF007C99A8 /* SimulationLois.cpp */; };
-		C9FA240A1CCCCD7D0059FC55 /* MultiLevem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FA24081CCCCD7D0059FC55 /* MultiLevem.cpp */; };
+		C9FA240D1CCCD80D0059FC55 /* MultiLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FA240B1CCCD80D0059FC55 /* MultiLevel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,8 +51,8 @@
 		C9B972681C8CA4FF007C99A8 /* SimulationLois.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimulationLois.cpp; path = ../../SimulationLois.cpp; sourceTree = "<group>"; };
 		C9B972691C8CA4FF007C99A8 /* SimulationLois.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimulationLois.h; path = ../../SimulationLois.h; sourceTree = "<group>"; };
 		C9B9726A1C8CA4FF007C99A8 /* vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector.h; path = ../../vector.h; sourceTree = "<group>"; };
-		C9FA24081CCCCD7D0059FC55 /* MultiLevem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiLevem.cpp; path = ../../MultiLevem.cpp; sourceTree = "<group>"; };
-		C9FA24091CCCCD7D0059FC55 /* MultiLevem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiLevem.h; path = ../../MultiLevem.h; sourceTree = "<group>"; };
+		C9FA240B1CCCD80D0059FC55 /* MultiLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MultiLevel.cpp; path = ../../MultiLevel.cpp; sourceTree = "<group>"; };
+		C9FA240C1CCCD80D0059FC55 /* MultiLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiLevel.h; path = ../../MultiLevel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,8 +103,8 @@
 				C91BDBD11CAAC71800B3EE64 /* EstimateurMonteCarlo.h */,
 				C91BDBD31CABFA9100B3EE64 /* SetOfPaths.cpp */,
 				C91BDBD41CABFA9100B3EE64 /* SetOfPaths.h */,
-				C9FA24081CCCCD7D0059FC55 /* MultiLevem.cpp */,
-				C9FA24091CCCCD7D0059FC55 /* MultiLevem.h */,
+				C9FA240B1CCCD80D0059FC55 /* MultiLevel.cpp */,
+				C9FA240C1CCCD80D0059FC55 /* MultiLevel.h */,
 			);
 			path = MonteCarlo;
 			sourceTree = "<group>";
@@ -166,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91BDBD21CAAC71800B3EE64 /* EstimateurMonteCarlo.cpp in Sources */,
-				C9FA240A1CCCCD7D0059FC55 /* MultiLevem.cpp in Sources */,
 				C9B9725A1C8C976E007C99A8 /* main.cpp in Sources */,
 				C9B9726F1C8CA4FF007C99A8 /* SimulationLois.cpp in Sources */,
 				C9B9726B1C8CA4FF007C99A8 /* Black_Scholes.cpp in Sources */,
@@ -174,6 +173,7 @@
 				C9B9726C1C8CA4FF007C99A8 /* MonteCarlo_Geo.cpp in Sources */,
 				C91BDBD51CABFA9100B3EE64 /* SetOfPaths.cpp in Sources */,
 				C91BDBCF1CAABFE500B3EE64 /* Trajectoires.cpp in Sources */,
+				C9FA240D1CCCD80D0059FC55 /* MultiLevel.cpp in Sources */,
 				C9B9726D1C8CA4FF007C99A8 /* MonteCarlo_Put.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
