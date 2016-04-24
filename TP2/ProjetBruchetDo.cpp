@@ -15,6 +15,7 @@
 #include "MonteCarlo_Put.h"
 #include "MonteCarlo_Geo.h"
 #include "EstimateurMonteCarlo.h"
+#include "MultiLevel.h"
 
 #include <memory>
 
@@ -38,6 +39,19 @@ int main()
 	double seuil = 1.0e-2;
 	double a = 0.6;
 	double b = 1.3;
+    
+    /*test
+    vector<int> tabint;
+    tabint.push_back(3);
+    vector<shared_ptr<SetOfPaths>> tabSOP;
+    
+    MultiLevel test = MultiLevel(3,tabint , tabint, tabSOP);
+    vector<vector<double>> arg;
+    vector<double> tableau;
+    tableau.push_back(2);
+    tableau.push_back(3);
+    arg.push_back(tableau);
+    test.taus.push_back(arg);*/
 
 	double Prixput=callput(spot, K, T, r, 0, vol, -1);
 

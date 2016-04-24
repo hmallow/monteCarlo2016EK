@@ -20,19 +20,17 @@ class MultiLevel{
     
 public:
     MultiLevel();
-    MultiLevel(int L, int k, int n, std::shared_ptr<SetOfPaths> underlyings);
+    MultiLevel(int L, std::vector<int> k, std::vector<int> n, std::vector<std::shared_ptr<SetOfPaths>>  underlyings);
     ~MultiLevel();
     
-    std::vector<vector<double>> computeTaus(Path const& EuropeanOption);
+    void computeTaus(Path const& EuropeanOption);
     
     Path computeM_k(Path const& underlying,vector<double> const& tau_i, int k_l);
     
     double step_n_0();
-    
     double next_steps();
     
-    
-    
+    std::vector<vector<vector<double>>> taus;
     
 private:
     double T = 0.5;
@@ -44,7 +42,7 @@ private:
     int Nb_Total;
     std::vector<std::shared_ptr<SetOfPaths>> sj_trajectories;
     std::vector<std::shared_ptr<SetOfPaths>> Z_trajectories;
-    std::vector<vector<vector<double>>> taus;
+    
     std::shared_ptr<MCEstimator> MCEstimator;
     
 };

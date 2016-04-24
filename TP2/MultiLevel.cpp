@@ -15,20 +15,25 @@ MultiLevel::MultiLevel(){
     
 }
 
-MultiLevel::MultiLevel(int L, int k, int n, shared_ptr<SetOfPaths> underlyings){
+MultiLevel::MultiLevel(int L, std::vector<int> k, std::vector<int> n, std::vector<std::shared_ptr<SetOfPaths>> underlyings){
     
+    NbLevels = L;
+    n_L = n;
+    k_L = k;
+    sj_trajectories = underlyings;
+    taus = vector<vector<vector<double>>>();
 }
 
 MultiLevel::~MultiLevel(){
     
 }
 
-vector<vector<double>> MultiLevel::computeTaus(Path const& EuropeanOption){
+void MultiLevel::computeTaus(Path const& EuropeanOption){
     
     int J = sj_trajectories[0]->getPath(0)->Points().size();
-    vector<vector<double>> taus;
     for (int l = 0; l < NbLevels; l++) {
-        for (int n = 0; n< Nb_Total; n++) {
+        vector<vector<double>> tau_l;
+        for (int n = 0; n< n_L[l]; n++) {
             vector<double> tau_n;
             for (int i = 0; i < J; i++) {
                 bool found = false;
@@ -41,9 +46,10 @@ vector<vector<double>> MultiLevel::computeTaus(Path const& EuropeanOption){
                     j++;
                 }
             }
+            tau_l.push_back(tau_n);
         }
+        taus.push_back(tau_l);
     }
-    return taus;
 }
 
 Path MultiLevel::computeM_k(Path const& underlying,vector<double> const& tau_i, int k_l){
