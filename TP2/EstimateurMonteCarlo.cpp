@@ -34,6 +34,9 @@ std::shared_ptr<SetOfPaths> & MCEstimator::getPaths(){
     return MCPaths;
 }
 
+void MCEstimator::addPath(Path & path){
+    MCPaths->addPath(path);
+}
 
 //calcule l'esperance du sup empirique
 double MCEstimator::computeMeanSup(){
@@ -42,6 +45,16 @@ double MCEstimator::computeMeanSup(){
     int N = sups.size();
     for (int i = 0; i < N; i++) {
         mean += sups[i];
+    }
+    mean = double(mean/N);
+    return mean;
+}
+
+double MCEstimator::computeMean(){
+    double mean = 0;
+    int N = MCPaths->getPaths().size();
+    for (int i = 0; i < N; i++) {
+        mean += MCPaths->getPath(i)->getLast();
     }
     mean = double(mean/N);
     return mean;

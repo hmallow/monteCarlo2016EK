@@ -23,8 +23,10 @@ public:
     
     void setPaths(std::shared_ptr<SetOfPaths> const& newSetPaths);
     std::shared_ptr<SetOfPaths> & getPaths();
+    void addPath(Path & path);
     
     double computeMeanSup();
+    double computeMean();
         
 private:
     std::shared_ptr<SetOfPaths> MCPaths;
