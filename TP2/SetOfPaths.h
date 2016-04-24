@@ -24,6 +24,7 @@ public:
     
     void setPaths(std::vector<std::shared_ptr<Path>>& new_paths);
     std::vector<std::shared_ptr<Path>> getPaths() const;
+    std::shared_ptr<Path> getPath(int index);
     
     void const addPath(Path & path);
     

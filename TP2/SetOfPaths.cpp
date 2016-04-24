@@ -40,6 +40,10 @@ std::vector<std::shared_ptr<Path>> SetOfPaths::getPaths() const{
     return paths;
 }
 
+shared_ptr<Path> SetOfPaths::getPath(int index){
+    return paths[index];
+}
+
 void const SetOfPaths::addPath(Path & path){
     
     shared_ptr<Path> path_ptr = make_shared<Path>(path);

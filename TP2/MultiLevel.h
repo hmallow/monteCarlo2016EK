@@ -12,24 +12,35 @@
 #include <stdio.h>
 #include <vector>
 #include "EstimateurMonteCarlo.h"
+#include "MonteCarlo_Geo.h"
 
 
 class MultiLevel{
     
 public:
     MultiLevel();
-    MultiLevel(int L, int k, int n);
+    MultiLevel(int L, int k, int n, std::shared_ptr<SetOfPaths> underlyings);
     ~MultiLevel();
     
-    std::vector<double> computeTaus(Path const& PayOff, Path const& EuropeanOption);
+    std::vector<vector<double>> computeTaus(Path const& EuropeanOption);
+    
+    Path computeM_k(Path const& underlying,vector<double> const& tau_i);
     
     double step_n_0();
+    
+    
     
     
 private:
     int NbLevels;
     std::vector<int> k_L;
     std::vector<int> n_L;
+    int Nb_Total;
+    std::shared_ptr<SetOfPaths> sj_trajectories;
+    std::shared_ptr<SetOfPaths> Z_trajectories;
+    std::shared_ptr<SetOfPaths> M_trajectories;
+    std::vector<vector<double>> taus;
+    std::shared_ptr<MCEstimator> MCEstimator;
     
 };
 
