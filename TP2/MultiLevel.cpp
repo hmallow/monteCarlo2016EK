@@ -81,9 +81,11 @@ double MultiLevel::step_n_0(){
     shared_ptr<SetOfPaths> SOPath;
     for (int i = 0; i < n_L[0]; i++) {
         Path diff_traj = *(Z_trajectories)->getPath(i) + computeM_k(*(sj_trajectories->getPath(i)), taus[i], k_L[0])*(-1);
+        SOPath->addPath(diff_traj);
     }
-    
-    return 2;
+    MCEstimator->setPaths(SOPath);
+    double Y_0 = MCEstimator->computeMeanSup();
+    return Y_0;
 }
 
 
