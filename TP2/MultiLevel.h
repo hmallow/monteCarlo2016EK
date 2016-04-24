@@ -29,6 +29,8 @@ public:
     
     double step_n_0();
     
+    double next_steps();
+    
     
     
     

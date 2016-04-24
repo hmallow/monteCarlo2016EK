@@ -88,4 +88,8 @@ double MultiLevel::step_n_0(){
     return Y_0;
 }
 
+double MultiLevel::next_steps(){
+    
+    return 2;
+}
 
