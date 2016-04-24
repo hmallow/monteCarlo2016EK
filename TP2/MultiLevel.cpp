@@ -6,6 +6,8 @@
 //  Copyright (c) 2016 Adrien Bruchet. All rights reserved.
 //
 
+using namespace std;
+
 #include "MultiLevel.h"
 
 
@@ -21,3 +23,8 @@ MultiLevel::~MultiLevel(){
     
 }
 
+vector<double> MultiLevel::computeTaus(Path const& path, Path const& EuropeanOption){
+    
+    vector<double> res;
+    return res;
+}
