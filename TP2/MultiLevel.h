@@ -42,10 +42,10 @@ private:
     std::vector<int> k_L;
     std::vector<int> n_L;
     int Nb_Total;
-    std::shared_ptr<SetOfPaths> sj_trajectories;
-    std::shared_ptr<SetOfPaths> Z_trajectories;
-    std::shared_ptr<SetOfPaths> M_trajectories;
-    std::vector<vector<double>> taus;
+    std::vector<std::shared_ptr<SetOfPaths>> sj_trajectories;
+    std::vector<std::shared_ptr<SetOfPaths>> Z_trajectories;
+    std::vector<std::shared_ptr<SetOfPaths>> M_trajectories;
+    std::vector<vector<vector<double>>> taus;
     std::shared_ptr<MCEstimator> MCEstimator;
     
 };

@@ -25,23 +25,24 @@ MultiLevel::~MultiLevel(){
 
 vector<vector<double>> MultiLevel::computeTaus(Path const& EuropeanOption){
     
-    int J = sj_trajectories->getPath(0)->Points().size();
+    int J = sj_trajectories[0]->getPath(0)->Points().size();
     vector<vector<double>> taus;
-    for (int n = 0; n< Nb_Total; n++) {
-        vector<double> tau_n;
-        for (int i = 0; i < J; i++) {
-            bool found = false;
-            int j = i;
-            while (found == false||j != J) {
-                if (EuropeanOption.Points()[j] <= Z_trajectories->getPath(n)->Points()[j]) {
-                    found = true;
-                    tau_n.push_back(j);
+    for (int l = 0; l < NbLevels; l++) {
+        for (int n = 0; n< Nb_Total; n++) {
+            vector<double> tau_n;
+            for (int i = 0; i < J; i++) {
+                bool found = false;
+                int j = i;
+                while (found == false||j != J) {
+                    if (EuropeanOption.Points()[j] <= Z_trajectories[l]->getPath(n)->Points()[j]) {
+                        found = true;
+                        tau_n.push_back(j);
+                    }
+                    j++;
                 }
-                j++;
             }
         }
     }
-    
     return taus;
 }
 
@@ -80,7 +81,7 @@ double MultiLevel::step_n_0(){
     
     shared_ptr<SetOfPaths> SOPath;
     for (int i = 0; i < n_L[0]; i++) {
-        Path diff_traj = *(Z_trajectories)->getPath(i) + computeM_k(*(sj_trajectories->getPath(i)), taus[i], k_L[0])*(-1);
+        Path diff_traj = *(Z_trajectories[0])->getPath(i) + computeM_k(*(sj_trajectories[0]->getPath(i)), taus[0][i], k_L[0])*(-1);
         SOPath->addPath(diff_traj);
     }
     MCEstimator->setPaths(SOPath);
@@ -90,6 +91,25 @@ double MultiLevel::step_n_0(){
 
 double MultiLevel::next_steps(){
     
-    return 2;
+    double sum_levels = 0;
+    for (int l = 1; l < NbLevels + 1; l++) {
+        shared_ptr<SetOfPaths> set_k_l;
+        shared_ptr<SetOfPaths> set_k_l_1;
+        for (int i = 0; i < n_L[l]; i++) {
+            Path Mk_l = computeM_k(*(sj_trajectories[l]->getPath(i)), taus[l][i], k_L[l]);
+            Path Mk_l_1 = computeM_k(*(sj_trajectories[l]->getPath(i)), taus[l][i], k_L[l-1]);
+            Path diff_path = *((Z_trajectories[l])->getPath(i)) + Mk_l*(-1);
+            Path diff_path_1 = *((Z_trajectories[l])->getPath(i)) + Mk_l_1*(-1);
+            set_k_l->addPath(diff_path);
+            set_k_l_1->addPath(diff_path_1);
+        }
+        MCEstimator->setPaths(set_k_l);
+        double sup_l = MCEstimator->computeMeanSup();
+        MCEstimator->setPaths(set_k_l_1);
+        double sup_l_1 = MCEstimator->computeMeanSup();
+        sum_levels += sup_l - sup_l_1;
+    }
+    
+    return sum_levels + step_n_0();
 }
 
