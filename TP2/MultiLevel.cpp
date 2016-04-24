@@ -55,15 +55,23 @@ void MultiLevel::computeTaus(Path const& EuropeanOption){
 Path MultiLevel::computeM_k(Path const& underlying,vector<double> const& tau_i, int k_l){
     
     int J = underlying.Points().size();
+    
     vector<double> new_points;
-    new_points.push_back(0);
+    new_points.push_back(0); //M_k nulle en 0
     double sum = 0;
     
+    //boucle sur les instants
     for (int j = 1; j < J ; j++) {
+        
+        //deux ensembles de trajectoires pour les deux esperances
+        //conditionnelles
         shared_ptr<SetOfPaths> sub_set_j;
         shared_ptr<SetOfPaths> sub_set_j_1;
+        
+        //boucle sur le nb de sous-simulations
         for (int k = 0; k < k_l; k++) {
-            vector<double> points = Sim_S(J, tau_i[j], vol, underlying.Points()[j], r, T);
+            int horizon = tau_i[j] - j;
+            vector<double> points = Sim_S(J, horizon, vol, underlying.Points()[j], r, T);
             vector<double> points_1 = Sim_S(J, tau_i[j] + 1, vol, underlying.Points()[j-1], r, T);
             Path sub_path_j = Path(points);
             sub_set_j->addPath(sub_path_j);
