@@ -21,7 +21,7 @@ public:
     MultiLevel(int L, int k, int n);
     ~MultiLevel();
     
-    std::vector<double> computeTaus(Path const& path, Path const& EuropeanOption);
+    std::vector<double> computeTaus(Path const& PayOff, Path const& EuropeanOption);
     
     double step_n_0();
     
