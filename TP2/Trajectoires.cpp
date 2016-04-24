@@ -20,6 +20,11 @@ Path::Path(vector<double>& new_points){
     points = new_points;
 }
 
+Path::Path(Path const& traj){
+    
+    points = traj.Points();
+}
+
 Path::~Path(){
     
 }

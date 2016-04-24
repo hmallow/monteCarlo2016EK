@@ -70,18 +70,23 @@ Path MultiLevel::computeM_k(Path const& underlying,vector<double> const& tau_i, 
         
         //boucle sur le nb de sous-simulations
         for (int k = 0; k < k_l; k++) {
+            
+            //simulation de deux trajectoires jusqu'en tau_j
             int horizon = tau_i[j] - j;
+            int horizon_1 = tau_i[j] -(j-1);
             vector<double> points = Sim_S(J, horizon, vol, underlying.Points()[j], r, T);
-            vector<double> points_1 = Sim_S(J, tau_i[j] + 1, vol, underlying.Points()[j-1], r, T);
+            vector<double> points_1 = Sim_S(J, horizon_1, vol, underlying.Points()[j-1], r, T);
             Path sub_path_j = Path(points);
             sub_set_j->addPath(sub_path_j);
             Path sub_path_j_1 = Path(points_1);
             sub_set_j_1->addPath(sub_path_j_1);
         }
-        MCEstimator->setPaths(sub_set_j);
-        double expect_j = MCEstimator->computeMean();
-        MCEstimator->setPaths(sub_set_j_1);
-        double expect_j_1 = MCEstimator->computeMean();
+        
+        //calcul d'un estimateur de E(Z_tau_i|Fi) et E(Z_tau_i|Fi-1)
+        Estimator->setPaths(sub_set_j);
+        double expect_j = Estimator->computeMean();
+        Estimator->setPaths(sub_set_j_1);
+        double expect_j_1 = Estimator->computeMean();
         double delta_i = expect_j - expect_j_1;
         sum+= delta_i;
         new_points.push_back(sum);
@@ -98,8 +103,8 @@ double MultiLevel::step_n_0(){
         Path diff_traj = *(Z_trajectories[0])->getPath(i) + computeM_k(*(sj_trajectories[0]->getPath(i)), taus[0][i], k_L[0])*(-1);
         SOPath->addPath(diff_traj);
     }
-    MCEstimator->setPaths(SOPath);
-    double Y_0 = MCEstimator->computeMeanSup();
+    Estimator->setPaths(SOPath);
+    double Y_0 = Estimator->computeMeanSup();
     return Y_0;
 }
 
@@ -117,10 +122,10 @@ double MultiLevel::next_steps(){
             set_k_l->addPath(diff_path);
             set_k_l_1->addPath(diff_path_1);
         }
-        MCEstimator->setPaths(set_k_l);
-        double sup_l = MCEstimator->computeMeanSup();
-        MCEstimator->setPaths(set_k_l_1);
-        double sup_l_1 = MCEstimator->computeMeanSup();
+        Estimator->setPaths(set_k_l);
+        double sup_l = Estimator->computeMeanSup();
+        Estimator->setPaths(set_k_l_1);
+        double sup_l_1 = Estimator->computeMeanSup();
         sum_levels += sup_l - sup_l_1;
     }
     

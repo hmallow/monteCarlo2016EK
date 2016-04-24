@@ -29,8 +29,7 @@ public:
     
     double step_n_0();
     double next_steps();
-    
-    std::vector<vector<vector<double>>> taus;
+
     
 private:
     double T = 0.5;
@@ -42,8 +41,8 @@ private:
     int Nb_Total;
     std::vector<std::shared_ptr<SetOfPaths>> sj_trajectories;
     std::vector<std::shared_ptr<SetOfPaths>> Z_trajectories;
-    
-    std::shared_ptr<MCEstimator> MCEstimator;
+    std::vector<vector<vector<double>>> taus;
+    std::shared_ptr<MCEstimator> Estimator = std::make_shared<MCEstimator>();
     
 };
 

@@ -40,9 +40,24 @@ int main()
 	double a = 0.6;
 	double b = 1.3;
     
-    auto points = Sim_S(Nt, 0, vol, spot, r, T);
+    auto points = Sim_S(Nt, 5, vol, spot, r, T);
 
 	double Prixput=callput(spot, K, T, r, 0, vol, -1);
+    
+    //test
+    MultiLevel test = MultiLevel();
+    Path path1 = Path(points);
+    Path path2 = Path(points);
+    
+    Path path3 = Path(path2);
+    
+    vector<shared_ptr<Path>> vectounet;
+    vectounet.push_back(make_shared<Path>(path1));
+    vectounet.push_back(make_shared<Path>(path2));
+    SetOfPaths setOP = SetOfPaths(vectounet);
+    auto arg = make_shared<SetOfPaths>(setOP);
+    
+    //fin test
 
 	cout << "Le prix d'un put europeen est : "<< Prixput << endl;
     
