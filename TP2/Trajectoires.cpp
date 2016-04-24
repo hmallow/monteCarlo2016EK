@@ -52,6 +52,7 @@ void Path::convertPut(double strike){
     }
 }
 
+
 double Path::getLast(){
     
     return points.back();

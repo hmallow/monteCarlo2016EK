@@ -28,7 +28,7 @@ public:
     void const addPath(Path & path);
     
     std::vector<double> computeSups() const;
-    
+        
 private:
     std::vector<std::shared_ptr<Path>> paths;
     

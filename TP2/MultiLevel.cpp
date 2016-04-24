@@ -7,3 +7,17 @@
 //
 
 #include "MultiLevel.h"
+
+
+MultiLevel::MultiLevel(){
+    
+}
+
+MultiLevel::MultiLevel(int L, int k, int n){
+    
+}
+
+MultiLevel::~MultiLevel(){
+    
+}
+

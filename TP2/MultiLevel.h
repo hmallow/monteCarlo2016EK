@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include "EstimateurMonteCarlo.h"
 
 
 class MultiLevel{
@@ -19,6 +20,11 @@ public:
     MultiLevel();
     MultiLevel(int L, int k, int n);
     ~MultiLevel();
+    
+    std::vector<double> computeTaus(Path & path);
+    
+    double step_n_0();
+    
     
 private:
     int NbLevels;
