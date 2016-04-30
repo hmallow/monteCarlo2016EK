@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 //#include "vector.h"
+#include <math.h>
 
 //une classe pour manipuler les trajectoires
 class Path {
@@ -28,6 +29,8 @@ public:
     void addPoint(double point);
     
     void convertPut(double strike);
+    
+    void discountPath(double T, double r);
     
     double getLast(); //récuperer la dernière valeur
     double getMax();

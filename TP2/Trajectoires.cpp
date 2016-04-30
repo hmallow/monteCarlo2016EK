@@ -58,6 +58,13 @@ void Path::convertPut(double strike){
 }
 
 
+void Path::discountPath(double T, double r){
+    double delta_t = T/(points.size()-1);
+    for (int i = 0; i < points.size(); i++) {
+        points[i] = exp(-r*delta_t*i)*points[i];
+    }
+}
+
 double Path::getLast(){
     
     return points.back();

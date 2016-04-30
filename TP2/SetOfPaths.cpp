@@ -13,7 +13,7 @@
 using namespace std;
 
 SetOfPaths::SetOfPaths(){
-    
+   paths = std::vector<shared_ptr<Path>>();
 }
 
 SetOfPaths::SetOfPaths(std::vector<std::shared_ptr<Path>> new_paths){
@@ -22,8 +22,9 @@ SetOfPaths::SetOfPaths(std::vector<std::shared_ptr<Path>> new_paths){
 
 SetOfPaths::SetOfPaths(SetOfPaths const& S){
     
-    paths = S.getPaths();
-    
+    for (int i = 0; i < S.getPaths().size(); i++) {
+        paths.push_back(make_shared<Path>(*(S.getPaths()[i])));
+    }
 }
 
 SetOfPaths::~SetOfPaths(){
@@ -44,11 +45,19 @@ shared_ptr<Path> SetOfPaths::getPath(int index){
     return paths[index];
 }
 
+
 void const SetOfPaths::addPath(Path & path){
     
     shared_ptr<Path> path_ptr = make_shared<Path>(path);
     paths.push_back(path_ptr);
 }
+
+void SetOfPaths::massConvertToPut(double strike){
+    for (int i = 0; i < paths.size(); i++) {
+        paths[i]->convertPut(strike);
+    }
+}
+
 
 //retourne un tableau des sups (1 par trajectoire)
 //se base sur la methode sup de la classe Path

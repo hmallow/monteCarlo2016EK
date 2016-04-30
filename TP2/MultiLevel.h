@@ -35,6 +35,7 @@ private:
     double T = 0.5;
     double r=0.06;
     double vol=0.4;
+    double strike = 80;
     int NbLevels;
     std::vector<int> k_L;
     std::vector<int> n_L;
