@@ -58,6 +58,16 @@ void SetOfPaths::massConvertToPut(double strike){
     }
 }
 
+vector<shared_ptr<Path>> SetOfPaths::massExtractPut(double strike){
+    vector<shared_ptr<Path>> set_of_puts;
+    for (int i = 0; i < paths.size(); i++) {
+        vector<double> points = paths[i]->extractPut(strike);
+        shared_ptr<Path> put_ptr = make_shared<Path>(points);
+        set_of_puts.push_back(put_ptr);
+    }
+    return set_of_puts;
+}
+
 
 //retourne un tableau des sups (1 par trajectoire)
 //se base sur la methode sup de la classe Path
@@ -95,5 +105,5 @@ SetOfPaths operator*(SetOfPaths const& S1, double lambda){
 }
 
 SetOfPaths operator-(SetOfPaths const& S1, SetOfPaths const& S2){
-    return S1+S2*(-1);
+    return S1-S2;
 }

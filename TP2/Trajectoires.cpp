@@ -18,11 +18,13 @@ Path::Path(){
 Path::Path(vector<double>& new_points){
     
     points = new_points;
+    N = new_points.size();
 }
 
 Path::Path(Path const& traj){
     
     points = traj.Points();
+    N = points.size();
 }
 
 Path::~Path(){
@@ -37,6 +39,10 @@ std::vector<double>& Path::Points(){
 std::vector<double> Path::Points() const{
     
     return points;
+}
+
+double Path::getPoint(int index) const{
+    return points[index];
 }
 
 void Path::addPoint(double point){
@@ -57,6 +63,18 @@ void Path::convertPut(double strike){
     }
 }
 
+vector<double> Path::extractPut(double strike) const{
+    vector<double> put_points;
+    for(int i = 0; i < points.size();i++){
+        if (strike - points[i] > 0) {
+            put_points.push_back(strike - points[i]);
+        }
+        else{
+            put_points.push_back(0);
+        }
+    }
+    return put_points;
+}
 
 void Path::discountPath(double T, double r){
     double delta_t = T/(points.size()-1);
@@ -71,11 +89,11 @@ double Path::getLast(){
 
 }
 
-double Path:: getMax(){
+double Path:: getMax(int a){
     double max = points[0];
-    for (auto element : points){
-        if (element > max) {
-            max = element;
+    for (int i = a; i< N;i++){
+        if (points[i] > max) {
+            max = points[i];
         }
     }
     return max;
@@ -106,4 +124,14 @@ Path operator*(Path const & P, double const lambda){
     }
     return Path(scal);
 }
+
+Path operator-(Path const & P1, Path const & P2){
+    
+    vector<double> sum;
+    for (int i = 0; i < P1.Points().size(); i++) {
+        sum.push_back(P1.Points()[i] - P2.Points()[i]);
+    }
+    return Path(sum);
+}
+
 

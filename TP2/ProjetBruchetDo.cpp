@@ -16,6 +16,7 @@
 #include "MonteCarlo_Geo.h"
 #include "EstimateurMonteCarlo.h"
 #include "MultiLevel.h"
+#include "MLevel.h"
 
 #include <memory>
 
@@ -76,15 +77,20 @@ int main()
     
     //creation de l'ensemble de minimisation
     vector<shared_ptr<Path>> paths;
+    //vector<shared_ptr<Path>> S_paths;
     vector<shared_ptr<Path>> marts;
     for (int i = 0; i < 300; i++) {
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
+        //Path S_path = Path(sim[0]);
+        //S_paths.push_back(make_shared<Path>(S_path));
         Path Z_path = Path(sim[0]);
         Z_path.convertPut(K);
         Path M_path = Path(sim[1]);
         paths.push_back(make_shared<Path>(Z_path));
         marts.push_back(make_shared<Path>(M_path));
     }
+    //SetOfPaths SJSet = SetOfPaths(S_paths);
+    //SetOfPaths TestPut = SetOfPaths(SJSet.massExtractPut(K));
     SetOfPaths MiniSet = SetOfPaths(paths);
     SetOfPaths MartSet = SetOfPaths(marts);
     
@@ -96,27 +102,29 @@ int main()
     //multilevel
     
     //simulation Option Européenne
-    vector<double> EuroPoints;
+    /*vector<double> EuroPoints;
     for (int k = 0; k < Nt; k++) {
         double P_t = callput(spot, K,k*T/Nt, r, 0, vol, -1);
         EuroPoints.push_back(P_t);
     }
     Path EuroPath = Path(EuroPoints);
-    EuroPath.discountPath(T, r);
+    EuroPath.discountPath(T, r);*/
+    
+    cout << "go multilevel" << endl;
     
     vector<int> k_L;
-    k_L.push_back(200);
-    k_L.push_back(400);
-    k_L.push_back(800);
-    k_L.push_back(1600);
+    k_L.push_back(50);
+    k_L.push_back(40);
+    k_L.push_back(80);
+    k_L.push_back(160);
     
     vector<int> n_L;
-    n_L.push_back(2360);
-    n_L.push_back(430);
-    n_L.push_back(210);
-    n_L.push_back(100);
+    n_L.push_back(6600);
+    n_L.push_back(43);
+    n_L.push_back(21);
+    n_L.push_back(10);
     
-    vector<shared_ptr<SetOfPaths>> underlyings;
+    vector<SetOfPaths> underlyings;
     
     for (int l = 0; l < 4; l++) {
         SetOfPaths SOP_l;
@@ -125,13 +133,21 @@ int main()
             Path S_path = sim[0];
             SOP_l.addPath(S_path);
         }
-        underlyings.push_back(make_shared<SetOfPaths>(SOP_l));
+        underlyings.push_back(SOP_l);
     }
+    cout << "underlyings créés "<<endl;
     
-    MultiLevel ML = MultiLevel(3, k_L, n_L, underlyings);
+    MLevel Multilev = MLevel(K, k_L, n_L, underlyings);
+    double y_0 = Multilev.first_step();
+    double y_n_k = Multilev.next_steps();
+    double price = y_0 + y_n_k;
+    cout << "le prix de l'option US est :" << price <<endl;
+    
+    
+    /*MultiLevel ML = MultiLevel(3, k_L, n_L, underlyings);
     ML.computeTaus(EuroPath);
     double price = ML.next_steps();
-    cout << "le prix de l'option US est :" << price <<endl;
+    cout << "le prix de l'option US est :" << price <<endl;*/
     
     
     //fin multilevel

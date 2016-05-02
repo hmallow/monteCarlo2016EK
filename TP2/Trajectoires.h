@@ -26,17 +26,21 @@ public:
     std::vector<double>& Points();
     std::vector<double> Points() const;
     
+    double getPoint(int index) const;
+    
     void addPoint(double point);
     
     void convertPut(double strike);
+    std::vector<double> extractPut(double strike) const;
     
     void discountPath(double T, double r);
     
     double getLast(); //récuperer la dernière valeur
-    double getMax();
+    double getMax(int a=0);
     
 private:
     std::vector<double> points;
+    int N;
     
 };
 
@@ -45,5 +49,7 @@ private:
 Path operator+(Path const & P1, Path const & P2);
 
 Path operator*(Path const & P, double const lambda);
+
+Path operator-(Path const & P, Path const & P2);
 
 #endif /* defined(__MonteCarlo__Trajectoires__) */

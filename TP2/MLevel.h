@@ -10,13 +10,28 @@
 #define __MonteCarlo__MLevel__
 
 #include <stdio.h>
+#include "EstimateurMonteCarlo.h"
+#include <vector>
+
 
 class MLevel{
     
 public:
     MLevel();
+    MLevel(double strike, std::vector<int> k, std::vector<int> n, std::vector<SetOfPaths> underlyings);
+    ~MLevel();
+    
+    
+    double first_step();
+    double next_steps();
     
 private:
+    std::vector<std::shared_ptr<SetOfPaths>> underlying_traj;
+    std::vector<std::shared_ptr<SetOfPaths>> Z_traj;
+    Path euro_traj;
+    double K;
+    std::vector<int> k_L;
+    std::vector<int> n_L;
     
     
 };

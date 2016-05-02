@@ -82,8 +82,10 @@ vector<double> Sim_S(int Nt, int horizon, double vol, double spot, double r, dou
     for (int i = 1; i < horizon+1; i++)
     {
         double normale = loinormale()[0];
-        double new_point = points.back()*exp(vol*sqrt(delta_t)*normale + (r - vol*vol / 2)*delta_t);
+        double ln_new_point = lnS[i-1] + vol*sqrt(delta_t)*normale + (r - vol*vol / 2)*delta_t;
+        double new_point = exp(ln_new_point);
         points.push_back(new_point);
+        lnS.push_back(ln_new_point);
     }
     
     return points;

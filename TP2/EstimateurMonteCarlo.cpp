@@ -14,6 +14,7 @@ using namespace std;
 
 
 MCEstimator::MCEstimator(){
+    MCPaths = make_shared<SetOfPaths>();
     
 }
 
@@ -21,6 +22,7 @@ MCEstimator::MCEstimator(shared_ptr<SetOfPaths> SOPaths){
     
     MCPaths = SOPaths;
 }
+
 
 MCEstimator::~MCEstimator(){
     
@@ -60,6 +62,15 @@ double MCEstimator::computeMean(){
     return mean;
 }
 
+double MCEstimator::computeMean(const vector<double> & points){
+    double sum (0);
+    int N = points.size();
+    for (int i = 0 ; i < N; i++) {
+        sum += points[i];
+    }
+    double res = sum/double(N);
+    return res;
+}
 
 double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     
@@ -112,4 +123,52 @@ double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
 }
 
 
+
+Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, double T, double r){
+    euro_traj.discountPath(T,r);
+    vector<double> z_points = traj.extractPut(strike);
+    Path Z_traj = Path(z_points);
+    int J = traj.Points().size();
+    
+    //calcul des temps d'exercices
+    vector<double> taus;
+    for (int j = 0; j < J+1 ; j++) {
+        int k = j;
+        bool found = false;
+        while (found == false && k < J) {
+            if (euro_traj.getMax(k) <= Z_traj.getPoint(k)) {
+                found = true;
+                taus.push_back(k);
+            }
+            else{
+                k++;
+            }
+        }
+        if (k == J && found == false) {
+            taus.push_back(k);
+        }
+    }
+    
+    //calcul des ∆i et de la martingale M_k
+    vector<double> M_points;
+    M_points.push_back(0);
+    vector<double> inner_traj;
+    vector<double> inner_traj_1;
+    MCEstimator Estim;
+    for (int j = 1; j < J; j++) {
+        for (int k = 0; k<nbSim; k++) {
+            double inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), 0.06, 0.5).back();
+            inner_traj.push_back(inner_sim);
+            double inner_sim_1 = Sim_S(50, taus[j], 0.4,traj.getPoint(j-1) , 0.06, 0.5).back();
+            inner_traj_1.push_back(inner_sim_1);
+        }
+        double esp_fi = Estim.computeMean(inner_traj);
+        double esp_fi_1 = Estim.computeMean(inner_traj_1);
+        double delta_i = esp_fi-esp_fi_1;
+        M_points.push_back(delta_i);
+    }
+    cout << "martingale simulee" << endl;
+    Path M_k = Path(M_points);
+    return M_k;
+}
 

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "SetOfPaths.h"
+#include "MonteCarlo_Put.h"
 #include <vector>
 
 //classe qui servira a toutes les estimations MC
@@ -27,6 +28,8 @@ public:
     
     double computeMeanSup();
     double computeMean();
+    
+    double computeMean(vector<double> const& points);
         
 private:
     std::shared_ptr<SetOfPaths> MCPaths;
@@ -35,5 +38,7 @@ private:
 
 //minimisation en lambda
 double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales);
+
+Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, double T, double r);
 
 #endif /* defined(__MonteCarlo__EstimateurMonteCarlo__) */

@@ -28,7 +28,7 @@ public:
     void const addPath(Path & path);
     
     void massConvertToPut(double strike);
-    
+    std::vector<std::shared_ptr<Path>> massExtractPut(double strike);
 
     
     std::vector<double> computeSups() const;
