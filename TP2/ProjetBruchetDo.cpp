@@ -29,7 +29,7 @@ int main()
 { 
 	double lambda = 1;
 
-	double spot=120;
+	double spot=80;
 	double K=100;
 	double T = 0.5;
 	double r=0.06;
@@ -110,16 +110,16 @@ int main()
     Path EuroPath = Path(EuroPoints);
     EuroPath.discountPath(T, r);*/
     
-    cout << "go multilevel" << endl;
+    /*cout << "go multilevel" << endl;
     
     vector<int> k_L;
-    k_L.push_back(50);
+    k_L.push_back(70);
     k_L.push_back(40);
     k_L.push_back(80);
     k_L.push_back(160);
     
     vector<int> n_L;
-    n_L.push_back(6600);
+    n_L.push_back(800);
     n_L.push_back(43);
     n_L.push_back(21);
     n_L.push_back(10);
@@ -152,7 +152,7 @@ int main()
     
     //fin multilevel
     //Recuperation du lambda min
-    //double l_min = minLambda(MiniSet, MartSet);
+    //double l_min_t = minLambda(MiniSet, MartSet);
     
     double l_min = 1;
     
@@ -160,16 +160,26 @@ int main()
     
     //creation de l'ensemble de calcul
     vector<shared_ptr<Path>> computePaths;
-    for (int i = 0; i < 5000; i++) {
+    vector<shared_ptr<Path>> ZPaths;
+    vector<shared_ptr<Path>> martPaths;
+    vector<double> supounets;
+    for (int i = 0; i < 10000; i++) {
         //cout << i << endl;
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
         Path Z_path = Path(sim[0]);
         Z_path.convertPut(K);
         Z_path.discountPath(T,r);
-        Path path = Z_path + Path(sim[1])*(-1*l_min);
+        Path mart = Path(sim[1]);
+        //mart.discountPath(T, r);
+        ZPaths.push_back(make_shared<Path>(Z_path));
+        martPaths.push_back(make_shared<Path>(mart));
+        Path path = Z_path - mart*l_min;
+        supounets.push_back(mart.getLast());
         //auto m = path.getMax();
         computePaths.push_back(make_shared<Path>(path));
     }
+    
+    cout << "esperance mart : " << estim.computeMean(supounets) << endl;
     
     SetOfPaths ComputeSet = SetOfPaths(computePaths);
     cout << "set created" << endl;
@@ -178,7 +188,7 @@ int main()
     shared_ptr<SetOfPaths> ComputeSetPtr = make_shared<SetOfPaths>(ComputeSet);
     cout << "pointer created" << endl;
     MCEstimator estimBis = MCEstimator(ComputeSetPtr);
-    //estim.setPaths(make_shared<SetOfPaths>(ComputeSet));
+    
     cout << "estimator created" << endl;
     double prix = estimBis.computeMeanSup();
     

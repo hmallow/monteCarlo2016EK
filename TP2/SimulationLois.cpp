@@ -45,13 +45,16 @@ vector<double> loinormale()
 std::random_device rd;
 std::mt19937 mt(rd());
 
+
 double loiuniforme()
 {
     std::uniform_real_distribution<double> dist(0,1);
     double random_number = dist(mt);
     return random_number;
-    //return (double)((float)rand() / (float)RAND_MAX);
+    //srand(rd());
+    //return (double)(rand() / (float)RAND_MAX);
 }
+
 
 
 

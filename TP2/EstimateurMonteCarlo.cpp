@@ -128,6 +128,7 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
     euro_traj.discountPath(T,r);
     vector<double> z_points = traj.extractPut(strike);
     Path Z_traj = Path(z_points);
+    Z_traj.discountPath(T,r);
     int J = traj.Points().size();
     
     //calcul des temps d'exercices
@@ -136,7 +137,7 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
         int k = j;
         bool found = false;
         while (found == false && k < J) {
-            if (euro_traj.getMax(k) <= Z_traj.getPoint(k)) {
+            if (callput(traj.getPoint(k), strike, (J-k)*T/J, r, 0, 0.4, -1) <= Z_traj.getPoint(k)) {
                 found = true;
                 taus.push_back(k);
             }
@@ -157,10 +158,16 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
     MCEstimator Estim;
     for (int j = 1; j < J; j++) {
         for (int k = 0; k<nbSim; k++) {
-            double inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), 0.06, 0.5).back();
-            inner_traj.push_back(inner_sim);
-            double inner_sim_1 = Sim_S(50, taus[j], 0.4,traj.getPoint(j-1) , 0.06, 0.5).back();
-            inner_traj_1.push_back(inner_sim_1);
+            vector<double> inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), 0.06, 0.5);
+            Path inner_path = Path(inner_sim);
+            inner_path.convertPut(strike);
+            double inner_point = inner_path.getLast()*exp(-r*(taus[j]-j)*(T/(J-1)));
+            inner_traj.push_back(inner_point);
+            vector<double> inner_sim_1 = Sim_S(50, taus[j], 0.4,traj.getPoint(j-1) , 0.06, 0.5);
+            Path inner_path_1 = Path(inner_sim_1);
+            inner_path_1.convertPut(strike);
+            double inner_point_1 = inner_path_1.getLast()*exp(-r*(taus[j]-(j-1))*(T/(J-1)));
+            inner_traj_1.push_back(inner_point_1);
         }
         double esp_fi = Estim.computeMean(inner_traj);
         double esp_fi_1 = Estim.computeMean(inner_traj_1);
