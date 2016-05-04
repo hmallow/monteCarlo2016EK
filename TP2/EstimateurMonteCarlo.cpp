@@ -133,8 +133,7 @@ double getMax(vector<double> vect){
 }
 
 
-Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, double T, double r){
-    euro_traj.discountPath(T,r);
+Path compute_M_k(Path const& traj,int nbSim, double strike, double T, double r){
     vector<double> z_points = traj.extractPut(strike);
     Path Z_traj = Path(z_points);
     Z_traj.discountPath(T,r);
@@ -158,10 +157,6 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
                 found = true;
                 taus.push_back(k);
             }
-            /*if (traj.getPoint(k)*exp(-r*k*time_step) < 2*L_inf) {
-                found = true;
-                taus.push_back(k);
-            }*/
             else{
                 k++;
             }
@@ -180,7 +175,7 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
     double sum = 0;
     for (int j = 1; j < J; j++) {
         for (int k = 0; k<nbSim; k++) {
-            vector<double> inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), r, T);
+            /*vector<double> inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), r, T);
             Path inner_path = Path(inner_sim);
             inner_path.convertPut(strike);
             double inner_point = inner_path.getLast()*exp(-r*(taus[j]-j)*time_step);
@@ -189,7 +184,18 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
             Path inner_path_1 = Path(inner_sim_1);
             inner_path_1.convertPut(strike);
             double inner_point_1 = inner_path_1.getLast()*exp(-r*(taus[j]-(j-1))*time_step);
+            inner_traj_1.push_back(inner_point_1);*/
+            double inner_point = (strike - Sim_S(50, taus[j], 0.4, traj.getPoint(j), r, T).back())*exp(-r*(taus[j] - j)*time_step);
+            if (inner_point < 0) {
+                inner_point = 0;
+            }
+            double inner_point_1 = (strike - Sim_S(50, taus[j], 0.4, traj.getPoint(j-1), r, T).back())*exp(-r*(taus[j] - j+1)*time_step);
+            if (inner_point_1 < 0) {
+                inner_point_1 = 0;
+            }
+            inner_traj.push_back(inner_point);
             inner_traj_1.push_back(inner_point_1);
+            
         }
         double esp_fi = Estim.computeMean(inner_traj);
         double esp_fi_1 = Estim.computeMean(inner_traj_1);

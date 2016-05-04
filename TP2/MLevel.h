@@ -28,7 +28,6 @@ public:
 private:
     std::vector<std::shared_ptr<SetOfPaths>> underlying_traj;
     std::vector<std::shared_ptr<SetOfPaths>> Z_traj;
-    Path euro_traj;
     double K;
     std::vector<int> k_L;
     std::vector<int> n_L;

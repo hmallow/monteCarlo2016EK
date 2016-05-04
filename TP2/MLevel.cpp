@@ -21,12 +21,6 @@ MLevel::MLevel(double strike, double T, int Nt,std::vector<int> k, std::vector<i
         underlying_traj.push_back(make_shared<SetOfPaths>(underlyings[l]));
         Z_traj.push_back(make_shared<SetOfPaths>(underlyings[l].massExtractPut(strike)));
     }
-    vector<double> EuroPoints;
-    for (int k = 0; k < 50; k++) {
-        double P_t = callput(underlying_traj[0]->getPath(0)->getPoint(0), strike,k*0.5/50, 0.06, 0, 0.4, -1);
-        EuroPoints.push_back(P_t);
-    }
-    euro_traj = Path(EuroPoints);
     K = strike;
     time_step = T/double(Nt);
     maturity = T;
@@ -45,7 +39,7 @@ double MLevel::first_step(){
     for (int n = 0; n< n_L[0]; n++) {
         cout << "n = " << n << endl;
         Path sj = *(underlying_traj[0]->getPath(n));
-        Path Z_M = *(Z_traj[0]->getPath(n)) - compute_M_k(sj, euro_traj, k_L[0], K, maturity, interest_rate);
+        Path Z_M = *(Z_traj[0]->getPath(n)) - compute_M_k(sj, k_L[0], K, maturity, interest_rate);
         Estim->addPath(Z_M);
     }
     double Y_0 = Estim->computeMeanSup();
@@ -60,8 +54,8 @@ double MLevel::next_steps(){
         vector<double> max_l;
         for (int n = 0; n < n_L[l]; n++) {
             Path sj = *(underlying_traj[0]->getPath(n));
-            Path Z_M_l = *(Z_traj[l]->getPath(n)) - compute_M_k(sj, euro_traj, k_L[l], K, 0.4, 0.06);
-            Path Z_M_l_1 = *(Z_traj[l]->getPath(n)) - compute_M_k(sj, euro_traj, k_L[l-1], K, 0.4, 0.06);
+            Path Z_M_l = *(Z_traj[l]->getPath(n)) - compute_M_k(sj, k_L[l], K, 0.4, 0.06);
+            Path Z_M_l_1 = *(Z_traj[l]->getPath(n)) - compute_M_k(sj, k_L[l-1], K, 0.4, 0.06);
             max_l.push_back(Z_M_l.getMax() - Z_M_l_1.getMax());
         }
         Y_next = Y_next + Estim->computeMean(max_l);

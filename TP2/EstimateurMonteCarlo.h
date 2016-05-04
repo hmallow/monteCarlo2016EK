@@ -39,7 +39,7 @@ private:
 //minimisation en lambda
 double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales);
 
-Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, double T, double r);
+Path compute_M_k(Path const& traj,int nbSim, double strike, double T, double r);
 
 
 #endif /* defined(__MonteCarlo__EstimateurMonteCarlo__) */
