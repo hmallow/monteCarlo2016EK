@@ -15,7 +15,7 @@ MLevel::MLevel(){
     
 }
 
-MLevel::MLevel(double strike, std::vector<int> k, std::vector<int> n, std::vector<SetOfPaths>  underlyings):k_L(k), n_L(n){
+MLevel::MLevel(double strike, double T, int Nt,std::vector<int> k, std::vector<int> n, std::vector<SetOfPaths>  underlyings):k_L(k), n_L(n){
     
     for (int l = 0; l < underlyings.size(); l++) {
         underlying_traj.push_back(make_shared<SetOfPaths>(underlyings[l]));
@@ -28,6 +28,11 @@ MLevel::MLevel(double strike, std::vector<int> k, std::vector<int> n, std::vecto
     }
     euro_traj = Path(EuroPoints);
     K = strike;
+    time_step = T/double(Nt);
+    maturity = T;
+    vol = 0.4;
+    interest_rate = 0.06;
+    
 }
 
 MLevel::~MLevel(){
@@ -40,7 +45,7 @@ double MLevel::first_step(){
     for (int n = 0; n< n_L[0]; n++) {
         cout << "n = " << n << endl;
         Path sj = *(underlying_traj[0]->getPath(n));
-        Path Z_M = *(Z_traj[0]->getPath(n)) - compute_M_k(sj, euro_traj, k_L[0], K, 0.4, 0.06);
+        Path Z_M = *(Z_traj[0]->getPath(n)) - compute_M_k(sj, euro_traj, k_L[0], K, maturity, interest_rate);
         Estim->addPath(Z_M);
     }
     double Y_0 = Estim->computeMeanSup();

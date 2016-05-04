@@ -47,4 +47,6 @@ private:
     
 };
 
+double test_broadie();
+
 #endif /* defined(__MonteCarlo__MultiLevel__) */

@@ -122,6 +122,15 @@ double minLambda(SetOfPaths const& Z, SetOfPaths const& martingales){
     return 0.5*(max + min);
 }
 
+double getMax(vector<double> vect){
+    double max = vect[0];
+    for(double elem:vect){
+        if (elem > max){
+            max = elem;
+        }
+    }
+    return max;
+}
 
 
 Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, double T, double r){
@@ -130,6 +139,9 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
     Path Z_traj = Path(z_points);
     Z_traj.discountPath(T,r);
     int J = traj.Points().size();
+    double time_step = T/double(J-1);
+    
+    double L_inf = (2*0.06*strike)/(2*0.06+pow(0.4, 2));
     
     //calcul des temps d'exercices
     vector<double> taus;
@@ -137,10 +149,19 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
         int k = j;
         bool found = false;
         while (found == false && k < J) {
-            if (callput(traj.getPoint(k), strike, (J-k)*T/J, r, 0, 0.4, -1) <= Z_traj.getPoint(k)) {
+            vector<double> eurotraj;
+            for (int p = k; p < J+1; p++) {
+                double spot = traj.getPoint(p);
+                eurotraj.push_back(callput(spot, strike, (J-p)*time_step, r, 0, 0.4, -1)*exp(-r*(p-k)*time_step));
+            }
+            if (getMax(eurotraj) >= Z_traj.getPoint(k)) {
                 found = true;
                 taus.push_back(k);
             }
+            /*if (traj.getPoint(k)*exp(-r*k*time_step) < 2*L_inf) {
+                found = true;
+                taus.push_back(k);
+            }*/
             else{
                 k++;
             }
@@ -156,26 +177,30 @@ Path compute_M_k(Path const& traj, Path & euro_traj,int nbSim, double strike, do
     vector<double> inner_traj;
     vector<double> inner_traj_1;
     MCEstimator Estim;
+    double sum = 0;
     for (int j = 1; j < J; j++) {
         for (int k = 0; k<nbSim; k++) {
-            vector<double> inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), 0.06, 0.5);
+            vector<double> inner_sim = Sim_S(50, taus[j], 0.4, traj.getPoint(j), r, T);
             Path inner_path = Path(inner_sim);
             inner_path.convertPut(strike);
-            double inner_point = inner_path.getLast()*exp(-r*(taus[j]-j)*(T/(J-1)));
+            double inner_point = inner_path.getLast()*exp(-r*(taus[j]-j)*time_step);
             inner_traj.push_back(inner_point);
-            vector<double> inner_sim_1 = Sim_S(50, taus[j], 0.4,traj.getPoint(j-1) , 0.06, 0.5);
+            vector<double> inner_sim_1 = Sim_S(50, taus[j], 0.4,traj.getPoint(j-1) , r, T);
             Path inner_path_1 = Path(inner_sim_1);
             inner_path_1.convertPut(strike);
-            double inner_point_1 = inner_path_1.getLast()*exp(-r*(taus[j]-(j-1))*(T/(J-1)));
+            double inner_point_1 = inner_path_1.getLast()*exp(-r*(taus[j]-(j-1))*time_step);
             inner_traj_1.push_back(inner_point_1);
         }
         double esp_fi = Estim.computeMean(inner_traj);
         double esp_fi_1 = Estim.computeMean(inner_traj_1);
         double delta_i = esp_fi-esp_fi_1;
-        M_points.push_back(delta_i);
+        sum = sum + delta_i;
+        M_points.push_back(sum);
     }
     cout << "martingale simulee" << endl;
     Path M_k = Path(M_points);
     return M_k;
 }
+
+
 

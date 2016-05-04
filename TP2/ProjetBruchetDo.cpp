@@ -29,7 +29,7 @@ int main()
 { 
 	double lambda = 1;
 
-	double spot=80;
+	double spot=120;
 	double K=100;
 	double T = 0.5;
 	double r=0.06;
@@ -49,6 +49,9 @@ int main()
     for (int i = 0; i < 10; i++) {
         cout << loiuniforme() << endl;
     }
+    
+    //double rep = test_broadie();
+    //cout << "le test donne " << rep << endl;
     
     /*test
     
@@ -71,7 +74,7 @@ int main()
     lolz.push_back(2);
     MultiLevel test = MultiLevel(3, lolz, lolz, args);
     
-    //fin test*/
+    //fin test
 
 	cout << "Le prix d'un put europeen est : "<< Prixput << endl;
     
@@ -97,7 +100,7 @@ int main()
     //Tests
     MCEstimator estim = MCEstimator(make_shared<SetOfPaths>(MiniSet));
     auto sups = MiniSet.computeSups();
-    auto Esup = estim.computeMeanSup();
+    auto Esup = estim.computeMeanSup();*/
     
     //multilevel
     
@@ -110,7 +113,7 @@ int main()
     Path EuroPath = Path(EuroPoints);
     EuroPath.discountPath(T, r);*/
     
-    /*cout << "go multilevel" << endl;
+    cout << "go multilevel" << endl;
     
     vector<int> k_L;
     k_L.push_back(70);
@@ -119,7 +122,7 @@ int main()
     k_L.push_back(160);
     
     vector<int> n_L;
-    n_L.push_back(800);
+    n_L.push_back(1500);
     n_L.push_back(43);
     n_L.push_back(21);
     n_L.push_back(10);
@@ -137,7 +140,7 @@ int main()
     }
     cout << "underlyings créés "<<endl;
     
-    MLevel Multilev = MLevel(K, k_L, n_L, underlyings);
+    MLevel Multilev = MLevel(K, T, Nt, k_L, n_L, underlyings);
     double y_0 = Multilev.first_step();
     double y_n_k = Multilev.next_steps();
     double price = y_0 + y_n_k;
@@ -163,14 +166,14 @@ int main()
     vector<shared_ptr<Path>> ZPaths;
     vector<shared_ptr<Path>> martPaths;
     vector<double> supounets;
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 5000; i++) {
         //cout << i << endl;
         auto sim = Sim_S_M(Nt, vol, spot, r, K, T);
         Path Z_path = Path(sim[0]);
         Z_path.convertPut(K);
         Z_path.discountPath(T,r);
         Path mart = Path(sim[1]);
-        //mart.discountPath(T, r);
+        mart.discountPath(T, r);
         ZPaths.push_back(make_shared<Path>(Z_path));
         martPaths.push_back(make_shared<Path>(mart));
         Path path = Z_path - mart*l_min;
@@ -179,7 +182,7 @@ int main()
         computePaths.push_back(make_shared<Path>(path));
     }
     
-    cout << "esperance mart : " << estim.computeMean(supounets) << endl;
+    //cout << "esperance mart : " << estim.computeMean(supounets) << endl;
     
     SetOfPaths ComputeSet = SetOfPaths(computePaths);
     cout << "set created" << endl;

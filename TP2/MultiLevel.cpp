@@ -9,6 +9,7 @@
 using namespace std;
 
 #include "MultiLevel.h"
+#include "vector.h"
 
 
 MultiLevel::MultiLevel(){
@@ -145,5 +146,128 @@ double MultiLevel::next_steps(){
     }
     
     return sum_levels + step_n_0();
+}
+
+double getSup(vector<double> vect){
+    double max = vect[0];
+    for(double elem:vect){
+        if (elem > max){
+            max = elem;
+        }
+    }
+    return max;
+}
+
+double getMean(vector<double> vect){
+    double sum = 0;
+    for (int k = 0; k < vect.size(); k++) {
+        sum+=vect[k];
+    }
+    int N = vect.size();
+    return sum/(double(N));
+}
+
+double test_broadie(){
+    
+    int N = 150;
+    double T = 0.5;
+    double r=0.06;
+    double vol=0.4;
+    int Nt = 50;
+    
+    double spot = 80;
+    double K = 100;
+    vector<vector<double>> sample_paths;
+    vector<vector<double>> Z_paths;
+    //creation des trajectoires
+    for (int n = 0; n < N; n++) {
+        cout << "n vaut " << n << endl;
+        vector<double> res = Sim_S_M(Nt, vol, spot, r, K, T)[0];
+        sample_paths.push_back(res);
+        vector<double> z_traj;
+        for (int k = 0; k < res.size(); k++) {
+            if (K - res[k] > 0) {
+                z_traj.push_back(K-res[k]);
+            }
+            else{
+                z_traj.push_back(0);
+            }
+        }
+        Z_paths.push_back(z_traj);
+    }
+    
+    //calcul des taus
+    vector<vector<double>> taus;
+    for (int n = 0; n < N; n++) {
+        cout << "n vaut " << n << endl;
+        vector<double> tau_n;
+        for (int j = 0; j < Nt+1; j++) {
+            int k = j;
+            bool found = false;
+            while (found == false && k < Nt) {
+                vector<double> eurotraj;
+                for (int p = k; p < Nt+1; p++) {
+                    eurotraj.push_back(callput(sample_paths[n][p], K, (Nt-p)*T/Nt, r, 0, vol, -1)*exp(-r*(Nt-p)*T/Nt));
+                }
+                if (getSup(eurotraj) >= Z_paths[n][k]) {
+                    found = true;
+                    tau_n.push_back(k);
+                }
+                else{
+                    k++;
+                }
+            }
+            if (k == Nt && found == false) {
+                tau_n.push_back(k);
+            }
+        }
+        taus.push_back(tau_n);
+    }
+    
+    
+    //calcul de la martingale M_k
+    int NbSim = 50;
+    vector<vector<double>> mart_paths;
+    vector<double> mart_end;
+    for (int n = 0; n < N; n++) {
+        cout << "n vaut " << n << endl;
+        vector<double> M_points;
+        M_points.push_back(0);
+        for (int j = 1; j < Nt+1; j++) {
+            vector<double> inner_traj;
+            vector<double> inner_traj_1;
+            for (int k = 0; k< NbSim; k++) {
+                double inner_sim = Sim_S_M(Nt, vol, sample_paths[n][j], r, K, T)[0][taus[n][j]-j];
+                double inner_point = 0;
+                if (K - inner_sim > 0) {
+                    inner_point = (K - inner_sim)*exp(-r*taus[n][j]-j)*(T/(Nt-1));
+                }
+                inner_traj.push_back(inner_point);
+                double inner_sim_1 = Sim_S_M(Nt, vol, sample_paths[n][j-1], r, K, T)[0][taus[n][j]-j];
+                double inner_point_1 = 0;
+                if (K - inner_sim_1 > 0) {
+                    inner_point_1 = (K - inner_sim_1)*exp(-r*taus[n][j]-(j-1))*(T/(Nt-1));
+                }
+                inner_traj_1.push_back(inner_point_1);
+            }
+            double esp_fi = getMean(inner_traj);
+            double esp_fi_1 = getMean(inner_traj_1);
+            double delta_i = esp_fi - esp_fi_1;
+            double sum = M_points.back();
+            M_points.push_back(delta_i + sum);
+        }
+        mart_paths.push_back(M_points);
+        mart_end.push_back(M_points.back());
+    }
+    
+    double test = getMean(mart_end);
+    vector<double> sups;
+    for (int n = 0; n < N; n++) {
+        vector<double> Z_M_i = Z_paths[n] - mart_paths[n];
+        double sup = getSup(Z_M_i);
+        sups.push_back(sup);
+    }
+    double Y_0 = getMean(sups);
+    return Y_0;
 }
 

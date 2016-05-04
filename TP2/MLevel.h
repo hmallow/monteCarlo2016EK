@@ -18,7 +18,7 @@ class MLevel{
     
 public:
     MLevel();
-    MLevel(double strike, std::vector<int> k, std::vector<int> n, std::vector<SetOfPaths> underlyings);
+    MLevel(double strike, double T, int Nt,std::vector<int> k, std::vector<int> n, std::vector<SetOfPaths> underlyings);
     ~MLevel();
     
     
@@ -32,7 +32,10 @@ private:
     double K;
     std::vector<int> k_L;
     std::vector<int> n_L;
-    
+    double time_step;
+    double maturity;
+    double interest_rate;
+    double vol;
     
 };
 
